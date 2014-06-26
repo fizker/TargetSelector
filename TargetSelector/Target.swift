@@ -7,12 +7,19 @@
 //
 
 import Foundation
+import Cocoa
 
+@objc
 class Target : Printable {
+	let productDir:NSURL
+	@objc
 	var name:String {
 		return productDir.absoluteString.lastPathComponent
 	}
-	let productDir:NSURL
+	@objc
+	var icon: NSImage {
+		return NSImage(contentsOfURL: productDir.URLByAppendingPathComponent("Icon120.png"))
+	}
 
 	init(url: NSURL) {
 		productDir = url

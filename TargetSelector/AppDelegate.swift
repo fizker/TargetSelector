@@ -18,4 +18,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	func applicationWillTerminate(aNotification: NSNotification?) {
 		// Insert code here to tear down your application
 	}
+
+	var targets : TargetBridge[] {
+		return loadTargets("/Users/benjamin/Development/poteo/iphone").map({
+			return TargetBridge.newWithTarget($0)
+		})
+	}
 }
