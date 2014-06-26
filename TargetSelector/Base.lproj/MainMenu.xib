@@ -677,17 +677,18 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9M-qH-gyZ">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="310"/>
                         <clipView key="contentView" id="PrF-Yt-9CO">
                             <rect key="frame" x="1" y="1" width="248" height="158"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <collectionView id="lgk-eT-ohF">
+                                <collectionView selectable="YES" id="lgk-eT-ohF">
                                     <rect key="frame" x="0.0" y="0.0" width="248" height="158"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
                                         <binding destination="kSi-HJ-S0q" name="content" keyPath="arrangedObjects" id="qXf-pO-54f"/>
+                                        <binding destination="kSi-HJ-S0q" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="qXf-pO-54f" id="suP-cA-dCo"/>
                                         <outlet property="itemPrototype" destination="8jE-Wc-676" id="U8N-co-HRB"/>
                                     </connections>
                                 </collectionView>
@@ -702,12 +703,36 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7gN-0b-OfX">
+                        <rect key="frame" x="18" y="320" width="84" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Current app:" id="oBO-wW-qND">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vLm-AN-48j">
+                        <rect key="frame" x="108" y="318" width="352" height="22"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="gMm-Tg-WKJ">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <binding destination="kSi-HJ-S0q" name="value" keyPath="selection.name" id="Ygg-Q5-oWG"/>
+                        </connections>
+                    </textField>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="7gN-0b-OfX" firstAttribute="baseline" secondItem="vLm-AN-48j" secondAttribute="baseline" id="0PE-ko-KsU"/>
+                    <constraint firstItem="N9M-qH-gyZ" firstAttribute="top" secondItem="vLm-AN-48j" secondAttribute="bottom" constant="8" symbolic="YES" id="5hm-5E-lRd"/>
+                    <constraint firstItem="vLm-AN-48j" firstAttribute="leading" secondItem="7gN-0b-OfX" secondAttribute="trailing" constant="8" symbolic="YES" id="Bho-x0-wY8"/>
+                    <constraint firstItem="7gN-0b-OfX" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="Gey-Sn-hDk"/>
+                    <constraint firstAttribute="trailing" secondItem="vLm-AN-48j" secondAttribute="trailing" constant="20" symbolic="YES" id="SXF-KZ-QnU"/>
                     <constraint firstAttribute="bottom" secondItem="N9M-qH-gyZ" secondAttribute="bottom" id="UN6-8Q-xRG"/>
                     <constraint firstItem="N9M-qH-gyZ" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="dML-BW-bxJ"/>
+                    <constraint firstItem="vLm-AN-48j" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="iKW-Yl-wUS"/>
                     <constraint firstAttribute="trailing" secondItem="N9M-qH-gyZ" secondAttribute="trailing" id="igl-ya-K8z"/>
-                    <constraint firstItem="N9M-qH-gyZ" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="obZ-UE-bsN"/>
                 </constraints>
             </view>
         </window>

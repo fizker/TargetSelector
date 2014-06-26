@@ -17,12 +17,19 @@ class Target : Printable {
 		return productDir.absoluteString.lastPathComponent
 	}
 	@objc
-	var icon: NSImage {
-		return NSImage(contentsOfURL: productDir.URLByAppendingPathComponent("Icon120.png"))
-	}
+	let icon: NSImage
 
 	init(url: NSURL) {
 		productDir = url
+
+		let fileManager = NSFileManager.defaultManager()
+		let primaryIconPath = productDir.URLByAppendingPathComponent("Icon120.png").path
+		let secondaryIconPath = productDir.URLByAppendingPathComponent("Icon@2x.png").path
+		let iconPath = fileManager.fileExistsAtPath(primaryIconPath)
+			? primaryIconPath
+			: secondaryIconPath
+
+		icon = NSImage(contentsOfFile: iconPath)
 	}
 
 	var description:String {

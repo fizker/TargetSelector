@@ -82,13 +82,12 @@
 			isa = PBXGroup;
 			children = (
 				43E41E9C195CB37D00FD162D /* Target.swift */,
+				43E41EA1195CCB6D00FD162D /* TargetBridge.h */,
+				43E41E9F195CCB5C00FD162D /* TargetBridge.m */,
 				43E41E81195CAEAC00FD162D /* AppDelegate.swift */,
 				43E41E83195CAEAC00FD162D /* Images.xcassets */,
 				43E41E85195CAEAC00FD162D /* MainMenu.xib */,
 				43E41E7D195CAEAC00FD162D /* Supporting Files */,
-				43E41EA1195CCB6D00FD162D /* TargetBridge.h */,
-				43E41E9F195CCB5C00FD162D /* TargetBridge.m */,
-				43E41E9E195CCB5C00FD162D /* TargetSelector-Bridging-Header.h */,
 			);
 			path = TargetSelector;
 			sourceTree = "<group>";
@@ -96,6 +95,7 @@
 		43E41E7D195CAEAC00FD162D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				43E41E9E195CCB5C00FD162D /* TargetSelector-Bridging-Header.h */,
 				43E41E7E195CAEAC00FD162D /* Info.plist */,
 				43E41E7F195CAEAC00FD162D /* main.swift */,
 			);
@@ -416,6 +416,7 @@
 				43E41E98195CAEAC00FD162D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		43E41E99195CAEAC00FD162D /* Build configuration list for PBXNativeTarget "TargetSelectorTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +425,7 @@
 				43E41E9B195CAEAC00FD162D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
