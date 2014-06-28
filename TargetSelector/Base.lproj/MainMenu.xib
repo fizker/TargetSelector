@@ -738,7 +738,11 @@
                             </connections>
                         </searchField>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="5B4AE37D-7138-44F4-BB29-A8740226F558" label="Add app" paletteLabel="Add app" tag="-1" image="AddApp" id="0zE-h7-xTf"/>
+                    <toolbarItem implicitItemIdentifier="5B4AE37D-7138-44F4-BB29-A8740226F558" label="Add app" paletteLabel="Add app" tag="-1" image="AddApp" id="0zE-h7-xTf">
+                        <connections>
+                            <action selector="addApp:" target="Voe-Tx-rLC" id="pFp-GA-xYZ"/>
+                        </connections>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="0zE-h7-xTf"/>

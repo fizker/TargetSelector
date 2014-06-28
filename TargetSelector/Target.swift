@@ -55,6 +55,29 @@ class Targets {
 		return true
 	}
 
+	func addTarget(imageFolder:String) {
+		let appStyles = AppStyles(filePath: imageFolder + "/AppStyles.json")
+
+		let errorPipe = NSPipe()
+		let outputPipe = NSPipe()
+		let task = NSTask()
+		task.launchPath = projectPath + "/add-product-gfx"
+		task.arguments = [imageFolder, appStyles.target]
+		task.standardError = errorPipe
+		task.standardOutput = outputPipe
+		task.launch()
+		task.waitUntilExit()
+
+		if task.terminationStatus != 0 {
+			let data = outputPipe.fileHandleForReading.readDataToEndOfFile()
+			let a = NSString(data: data, encoding: NSUTF8StringEncoding)
+			println(a)
+		}
+	}
+	func addTarget(imageFolder:NSURL) {
+		return addTarget(imageFolder.path)
+	}
+
 	func loadTargets() -> Target[] {
 		let fileManager = NSFileManager.defaultManager()
 		var error : NSError?

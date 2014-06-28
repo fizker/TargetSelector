@@ -77,6 +77,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		})
 	}
 
+	@IBAction func addApp(sender: AnyObject) {
+		let openPanel = NSOpenPanel()
+		openPanel.prompt = "Add app"
+		openPanel.canChooseFiles = false
+		openPanel.canChooseDirectories = true
+		openPanel.beginSheetModalForWindow(window, completionHandler: { buttonClicked in
+			switch buttonClicked {
+				case NSOKButton:
+					let urls = openPanel.URLs as NSURL[]
+					for url in urls {
+						self.targetsHelper?.addTarget(url)
+					}
+					self.loadTargets()
+				default:
+					break
+			}
+		})
+	}
+
 	@IBOutlet var collectionView: NSCollectionView
 	var selectedIndexes: NSIndexSet = NSIndexSet() {
 		didSet {
