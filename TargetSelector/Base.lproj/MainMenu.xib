@@ -741,14 +741,15 @@
                 <outlet property="view" destination="g6k-Ry-hQ9" id="gNc-Cc-fUA"/>
             </connections>
         </collectionViewItem>
-        <view id="g6k-Ry-hQ9">
-            <rect key="frame" x="0.0" y="0.0" width="90" height="133"/>
+        <view id="g6k-Ry-hQ9" customClass="TargetCollectionViewCell" customModule="TargetSelector" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="130" height="160"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k4h-Mt-6ND">
-                    <rect key="frame" x="0.0" y="43" width="90" height="90"/>
+                    <rect key="frame" x="5" y="35" width="120" height="120"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="k4h-Mt-6ND" secondAttribute="height" multiplier="1:1" id="QBl-sT-KLd"/>
+                        <constraint firstAttribute="width" constant="120" id="lbN-II-QNT"/>
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Edx-dh-KKb"/>
                     <connections>
@@ -756,8 +757,8 @@
                     </connections>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yqX-nH-27a">
-                    <rect key="frame" x="26" y="20" width="38" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="ujI-tZ-1Ne">
+                    <rect key="frame" x="30" y="10" width="70" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="App Name" id="ujI-tZ-1Ne">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -768,14 +769,16 @@
                 </textField>
             </subviews>
             <constraints>
-                <constraint firstItem="k4h-Mt-6ND" firstAttribute="leading" secondItem="g6k-Ry-hQ9" secondAttribute="leading" id="5H8-hM-7zz"/>
-                <constraint firstItem="k4h-Mt-6ND" firstAttribute="top" secondItem="g6k-Ry-hQ9" secondAttribute="top" id="CPp-3B-HWB"/>
-                <constraint firstAttribute="bottom" secondItem="yqX-nH-27a" secondAttribute="bottom" constant="20" symbolic="YES" id="D4j-Mv-OqB"/>
-                <constraint firstItem="yqX-nH-27a" firstAttribute="top" secondItem="k4h-Mt-6ND" secondAttribute="bottom" constant="6" id="FZc-tb-EOx"/>
-                <constraint firstAttribute="trailing" secondItem="k4h-Mt-6ND" secondAttribute="trailing" id="cAd-bX-ti2"/>
+                <constraint firstItem="k4h-Mt-6ND" firstAttribute="leading" secondItem="g6k-Ry-hQ9" secondAttribute="leading" constant="5" id="5H8-hM-7zz"/>
+                <constraint firstItem="k4h-Mt-6ND" firstAttribute="top" secondItem="g6k-Ry-hQ9" secondAttribute="top" constant="5" id="CPp-3B-HWB"/>
+                <constraint firstAttribute="bottom" secondItem="yqX-nH-27a" secondAttribute="bottom" constant="10" id="D4j-Mv-OqB"/>
+                <constraint firstItem="yqX-nH-27a" firstAttribute="top" secondItem="k4h-Mt-6ND" secondAttribute="bottom" constant="8" symbolic="YES" id="FZc-tb-EOx"/>
+                <constraint firstItem="yqX-nH-27a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g6k-Ry-hQ9" secondAttribute="leading" constant="5" id="IYQ-Dg-jyK"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yqX-nH-27a" secondAttribute="trailing" constant="5" id="TRO-Cm-9uL"/>
+                <constraint firstAttribute="trailing" secondItem="k4h-Mt-6ND" secondAttribute="trailing" constant="5" id="cAd-bX-ti2"/>
                 <constraint firstAttribute="centerX" secondItem="yqX-nH-27a" secondAttribute="centerX" id="v9e-I5-y3T"/>
             </constraints>
-            <point key="canvasLocation" x="503" y="172.5"/>
+            <point key="canvasLocation" x="528.5" y="197"/>
         </view>
         <arrayController objectClassName="TargetBridge" editable="NO" id="kSi-HJ-S0q">
             <declaredKeys>
