@@ -8,6 +8,7 @@
 
 import Foundation
 import Cocoa
+import JavaScriptCore
 
 @objc
 class Target : Printable {
@@ -37,22 +38,61 @@ class Target : Printable {
 	}
 }
 
-func loadTargets(projectPath:String) -> Target[] {
-	let fileManager = NSFileManager.defaultManager()
-	var error : NSError?
-
-	if let contents = fileManager.contentsOfDirectoryAtURL(
-		NSURL(fileURLWithPath: projectPath + "/products"),
-		includingPropertiesForKeys: [NSURLIsDirectoryKey],
-		options: .SkipsHiddenFiles,
-		error: &error) as? NSURL[]
-	{
-		return contents.map({
-			Target(url: $0)
-		})
+class Targets {
+	let projectPath: String
+	init(projectPath:String) {
+		self.projectPath = projectPath
 	}
 
-	println("Got error: \(error?.localizedDescription)")
+	func loadTargets() -> Target[] {
+		let fileManager = NSFileManager.defaultManager()
+		var error : NSError?
 
-	return []
+		if let contents = fileManager.contentsOfDirectoryAtURL(
+			NSURL(fileURLWithPath: projectPath + "/products"),
+			includingPropertiesForKeys: [NSURLIsDirectoryKey],
+			options: .SkipsHiddenFiles,
+			error: &error) as? NSURL[]
+		{
+			return contents.map({
+				Target(url: $0)
+			})
+		}
+
+		println("Got error: \(error?.localizedDescription)")
+
+		return []
+	}
+
+	func getCurrentTarget() -> String {
+		let fileManager = NSFileManager.defaultManager()
+		var error : NSError?
+
+		if let content = String.stringWithContentsOfFile(projectPath + "/Target.xcconfig", encoding: NSUTF8StringEncoding, error: &error) {
+			let context = JSContext()
+			let result = context.evaluateScript("'\(content)'.match(/CURRENT_TARGET_NAME *= *(.+)/)[1]")
+			return result.toString()
+		}
+
+		return ""
+	}
+	func setCurrentTarget(target:String) {
+		let errorPipe = NSPipe()
+		let task = NSTask()
+		task.launchPath = "/usr/local/bin/node"
+		task.arguments = [projectPath + "/scripts/set-current-target.js", target]
+		task.standardError = errorPipe
+		task.launch()
+		task.waitUntilExit()
+
+		let file = errorPipe.fileHandleForReading
+		let data = file.readDataToEndOfFile()
+		if data.length > 0 {
+			let contents = NSString(data: data, encoding: NSUTF8StringEncoding)
+			println("Error with running set-current-target: \(contents)")
+		}
+	}
+	func setCurrentTarget(target:Target) {
+		setCurrentTarget(target.name)
+	}
 }

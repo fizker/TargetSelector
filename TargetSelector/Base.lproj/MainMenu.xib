@@ -786,6 +786,7 @@
                 <string>icon</string>
             </declaredKeys>
             <connections>
+                <binding destination="Voe-Tx-rLC" name="selectionIndexes" keyPath="selectedIndexes" id="rSv-5N-s9H"/>
                 <binding destination="Voe-Tx-rLC" name="contentArray" keyPath="targets" id="9Q8-gH-Y0F">
                     <dictionary key="options">
                         <bool key="NSConditionallySetsEditable" value="NO"/>
