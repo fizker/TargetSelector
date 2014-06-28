@@ -44,6 +44,17 @@ class Targets {
 		self.projectPath = projectPath
 	}
 
+	class func isValidProjectDir(projectPath:String) -> Bool {
+		let fileManager = NSFileManager.defaultManager()
+		let requiredFiles = ["Target.xcconfig", "products", "scripts/set-current-target.js"]
+		for file in requiredFiles {
+			if !fileManager.fileExistsAtPath("\(projectPath)/\(file)") {
+				return false
+			}
+		}
+		return true
+	}
+
 	func loadTargets() -> Target[] {
 		let fileManager = NSFileManager.defaultManager()
 		var error : NSError?
