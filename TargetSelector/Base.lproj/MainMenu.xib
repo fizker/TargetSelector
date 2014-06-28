@@ -678,7 +678,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9M-qH-gyZ">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="310"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                         <clipView key="contentView" id="PrF-Yt-9CO">
                             <rect key="frame" x="1" y="1" width="248" height="158"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -704,38 +704,48 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7gN-0b-OfX">
-                        <rect key="frame" x="18" y="320" width="84" height="17"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Current app:" id="oBO-wW-qND">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vLm-AN-48j">
-                        <rect key="frame" x="108" y="318" width="352" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="gMm-Tg-WKJ">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <binding destination="kSi-HJ-S0q" name="value" keyPath="selection.name" id="Ygg-Q5-oWG"/>
-                        </connections>
-                    </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="7gN-0b-OfX" firstAttribute="baseline" secondItem="vLm-AN-48j" secondAttribute="baseline" id="0PE-ko-KsU"/>
-                    <constraint firstItem="N9M-qH-gyZ" firstAttribute="top" secondItem="vLm-AN-48j" secondAttribute="bottom" constant="8" symbolic="YES" id="5hm-5E-lRd"/>
-                    <constraint firstItem="vLm-AN-48j" firstAttribute="leading" secondItem="7gN-0b-OfX" secondAttribute="trailing" constant="8" symbolic="YES" id="Bho-x0-wY8"/>
-                    <constraint firstItem="7gN-0b-OfX" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="Gey-Sn-hDk"/>
-                    <constraint firstAttribute="trailing" secondItem="vLm-AN-48j" secondAttribute="trailing" constant="20" symbolic="YES" id="SXF-KZ-QnU"/>
+                    <constraint firstItem="N9M-qH-gyZ" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="0V0-Jr-22i"/>
                     <constraint firstAttribute="bottom" secondItem="N9M-qH-gyZ" secondAttribute="bottom" id="UN6-8Q-xRG"/>
                     <constraint firstItem="N9M-qH-gyZ" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="dML-BW-bxJ"/>
-                    <constraint firstItem="vLm-AN-48j" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="iKW-Yl-wUS"/>
                     <constraint firstAttribute="trailing" secondItem="N9M-qH-gyZ" secondAttribute="trailing" id="igl-ya-K8z"/>
                 </constraints>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="754CF35B-EA07-4946-8639-70A15CEA9E92" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="qda-Mf-7dH">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="oCW-Gp-Imx"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="iSL-59-pLm"/>
+                    <toolbarItem implicitItemIdentifier="2136C105-F7A1-4530-A681-A250B6F58B7D" label="Search" paletteLabel="Search" id="b4n-cW-Xbv">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="96" height="22"/>
+                        <size key="maxSize" width="96" height="22"/>
+                        <searchField key="view" verticalHuggingPriority="750" id="PrS-dH-G9l">
+                            <rect key="frame" x="0.0" y="0.0" width="96" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="3VA-KL-aol">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </searchFieldCell>
+                            <connections>
+                                <binding destination="kSi-HJ-S0q" name="predicate" keyPath="filterPredicate" id="blG-yF-0tz">
+                                    <dictionary key="options">
+                                        <string key="NSDisplayName">predicate</string>
+                                        <string key="NSPredicateFormat">name contains $value</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </searchField>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="5B4AE37D-7138-44F4-BB29-A8740226F558" label="Add app" paletteLabel="Add app" tag="-1" image="AddApp" id="0zE-h7-xTf"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="0zE-h7-xTf"/>
+                    <toolbarItem reference="iSL-59-pLm"/>
+                    <toolbarItem reference="b4n-cW-Xbv"/>
+                </defaultToolbarItems>
+            </toolbar>
         </window>
         <collectionViewItem id="8jE-Wc-676" customClass="TargetCollectionViewItem" customModule="TargetSelector" customModuleProvider="target">
             <connections>
@@ -796,4 +806,7 @@
             </connections>
         </arrayController>
     </objects>
+    <resources>
+        <image name="AddApp" width="189" height="154"/>
+    </resources>
 </document>

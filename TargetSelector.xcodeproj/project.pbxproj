@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4323D0CC195EC6EA00A72B09 /* TargetCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4323D0CB195EC6EA00A72B09 /* TargetCollectionViewItem.swift */; };
+		434F40FA195F385000F14CBF /* AddApp.png in Resources */ = {isa = PBXBuildFile; fileRef = 434F40F9195F385000F14CBF /* AddApp.png */; };
 		43778C1B195CD51300BD417D /* TargetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43778C1A195CD51300BD417D /* TargetCollectionViewCell.swift */; };
 		43E41E80195CAEAC00FD162D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E7F195CAEAC00FD162D /* main.swift */; };
 		43E41E82195CAEAC00FD162D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E81195CAEAC00FD162D /* AppDelegate.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		4323D0CB195EC6EA00A72B09 /* TargetCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetCollectionViewItem.swift; sourceTree = "<group>"; };
+		434F40F9195F385000F14CBF /* AddApp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddApp.png; sourceTree = "<group>"; };
 		43778C1A195CD51300BD417D /* TargetCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetCollectionViewCell.swift; sourceTree = "<group>"; };
 		43E41E7A195CAEAC00FD162D /* TargetSelector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TargetSelector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E41E7E195CAEAC00FD162D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		43E41E7D195CAEAC00FD162D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				434F40F9195F385000F14CBF /* AddApp.png */,
 				43E41E9E195CCB5C00FD162D /* TargetSelector-Bridging-Header.h */,
 				43E41E7E195CAEAC00FD162D /* Info.plist */,
 				43E41E7F195CAEAC00FD162D /* main.swift */,
@@ -205,6 +208,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				434F40FA195F385000F14CBF /* AddApp.png in Resources */,
 				43E41E84195CAEAC00FD162D /* Images.xcassets in Resources */,
 				43E41E87195CAEAC00FD162D /* MainMenu.xib in Resources */,
 			);
