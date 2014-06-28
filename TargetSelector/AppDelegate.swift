@@ -26,24 +26,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	func loadTargets() {
 		if let projectPath = NSUserDefaults.standardUserDefaults().stringForKey(USER_DEFAULTS_PROJECT_PATH) {
 			if Targets.isValidProjectDir(projectPath) {
-				targetsHelper = Targets(projectPath: projectPath)
+				willChangeValueForKey("targets")
+				let targetsHelper = Targets(projectPath: projectPath)
+				self.targetsHelper = targetsHelper
+
+				var i = 0
+				let currentTarget = targetsHelper.getCurrentTarget()
+				for target in targetsHelper.loadTargets() {
+					if target.name == currentTarget {
+						break
+					}
+					i++
+				}
+
+				didChangeValueForKey("targets")
+
+				selectedIndexes = NSIndexSet(index: i)
 			}
 		}
 
-		if let targetsHelper = self.targetsHelper {
-			var i = 0
-			let currentTarget = targetsHelper.getCurrentTarget()
-			for target in targetsHelper.loadTargets() {
-				if target.name == currentTarget {
-					println("Found current app: \(target.name)")
-					break
-				}
-				i++
-			}
-			selectedIndexes = NSIndexSet(index: i)
-			willChangeValueForKey("targets")
-			didChangeValueForKey("targets")
-		} else {
+		if !targetsHelper {
 			promptForProjectPath()
 		}
 	}
@@ -82,6 +84,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 				}
 				let target = targets[index]
 				targetsHelper?.setCurrentTarget(target)
+				println("Scroll into view")
 			}
 		}
 	}
