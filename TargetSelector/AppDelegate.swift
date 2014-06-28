@@ -52,6 +52,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 	}
 
+	@IBAction func promptForProjectPath(sender: AnyObject) {
+		promptForProjectPath()
+	}
+
 	func promptForProjectPath() {
 		let openPanel = NSOpenPanel()
 		openPanel.prompt = "Select ReturnTool project folder"
@@ -64,17 +68,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 					let path = url.path
 
 					if !Targets.isValidProjectDir(path) {
-						fallthrough
+						break
 					}
 
 					NSUserDefaults.standardUserDefaults().setObject(url.path, forKey: USER_DEFAULTS_PROJECT_PATH)
 					self.loadTargets()
 				case NSCancelButton:
-					fallthrough
+					break
 				default:
-					self.promptForProjectPath()
+					break
 			}
 		})
+	}
+
+
+	@IBOutlet var searchField: NSSearchField
+	@IBAction func setFocusToSearch(sender: AnyObject) {
+		searchField.becomeFirstResponder()
 	}
 
 	@IBOutlet var collectionView: NSCollectionView
