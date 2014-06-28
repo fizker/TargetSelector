@@ -736,7 +736,7 @@
                 </constraints>
             </view>
         </window>
-        <collectionViewItem id="8jE-Wc-676">
+        <collectionViewItem id="8jE-Wc-676" customClass="TargetCollectionViewItem" customModule="TargetSelector" customModuleProvider="target">
             <connections>
                 <outlet property="view" destination="g6k-Ry-hQ9" id="gNc-Cc-fUA"/>
             </connections>

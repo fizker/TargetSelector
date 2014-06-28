@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4323D0CC195EC6EA00A72B09 /* TargetCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4323D0CB195EC6EA00A72B09 /* TargetCollectionViewItem.swift */; };
 		43778C1B195CD51300BD417D /* TargetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43778C1A195CD51300BD417D /* TargetCollectionViewCell.swift */; };
 		43E41E80195CAEAC00FD162D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E7F195CAEAC00FD162D /* main.swift */; };
 		43E41E82195CAEAC00FD162D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E81195CAEAC00FD162D /* AppDelegate.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4323D0CB195EC6EA00A72B09 /* TargetCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetCollectionViewItem.swift; sourceTree = "<group>"; };
 		43778C1A195CD51300BD417D /* TargetCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetCollectionViewCell.swift; sourceTree = "<group>"; };
 		43E41E7A195CAEAC00FD162D /* TargetSelector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TargetSelector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E41E7E195CAEAC00FD162D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				43E41EA1195CCB6D00FD162D /* TargetBridge.h */,
 				43E41E9F195CCB5C00FD162D /* TargetBridge.m */,
 				43778C1A195CD51300BD417D /* TargetCollectionViewCell.swift */,
+				4323D0CB195EC6EA00A72B09 /* TargetCollectionViewItem.swift */,
 				43E41E81195CAEAC00FD162D /* AppDelegate.swift */,
 				43E41E83195CAEAC00FD162D /* Images.xcassets */,
 				43E41E85195CAEAC00FD162D /* MainMenu.xib */,
@@ -223,6 +226,7 @@
 			files = (
 				43E41E9D195CB37D00FD162D /* Target.swift in Sources */,
 				43E41EA0195CCB5C00FD162D /* TargetBridge.m in Sources */,
+				4323D0CC195EC6EA00A72B09 /* TargetCollectionViewItem.swift in Sources */,
 				43E41E82195CAEAC00FD162D /* AppDelegate.swift in Sources */,
 				43778C1B195CD51300BD417D /* TargetCollectionViewCell.swift in Sources */,
 				43E41E80195CAEAC00FD162D /* main.swift in Sources */,
