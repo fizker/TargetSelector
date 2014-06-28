@@ -26,20 +26,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	func loadTargets() {
 		if let projectPath = NSUserDefaults.standardUserDefaults().stringForKey(USER_DEFAULTS_PROJECT_PATH) {
 			if Targets.isValidProjectDir(projectPath) {
-				willChangeValueForKey("targets")
 				let targetsHelper = Targets(projectPath: projectPath)
 				self.targetsHelper = targetsHelper
 
 				var i = 0
 				let currentTarget = targetsHelper.getCurrentTarget()
-				for target in targetsHelper.loadTargets() {
+				let targets = targetsHelper.loadTargets()
+				for target in targets {
 					if target.name == currentTarget {
 						break
 					}
 					i++
 				}
 
-				didChangeValueForKey("targets")
+				self.targets = targets.map({
+					return TargetBridge.newWithTarget($0)
+				})
 
 				selectedIndexes = NSIndexSet(index: i)
 			}
@@ -75,6 +77,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		})
 	}
 
+	@IBOutlet var collectionView: NSCollectionView
 	var selectedIndexes: NSIndexSet = NSIndexSet() {
 		didSet {
 			let index = selectedIndexes.firstIndex
@@ -84,18 +87,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 				}
 				let target = targets[index]
 				targetsHelper?.setCurrentTarget(target)
-				println("Scroll into view")
+
+				let visibleRect = collectionView.frameForItemAtIndex(index)
+				collectionView.scrollRectToVisible(visibleRect)
 			}
 		}
 	}
 
-	var targets : TargetBridge[] {
-		if let targetsHelper = self.targetsHelper {
-			return targetsHelper.loadTargets().map({
-				return TargetBridge.newWithTarget($0)
-			})
-		} else {
-			return []
-		}
-	}
+	var targets : TargetBridge[] = []
 }
