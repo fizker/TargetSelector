@@ -738,10 +738,8 @@
                             </connections>
                         </searchField>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="5B4AE37D-7138-44F4-BB29-A8740226F558" label="Add app" paletteLabel="Add app" tag="-1" image="AddApp" id="0zE-h7-xTf"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="0zE-h7-xTf"/>
                     <toolbarItem reference="iSL-59-pLm"/>
                     <toolbarItem reference="b4n-cW-Xbv"/>
                 </defaultToolbarItems>
@@ -806,7 +804,4 @@
             </connections>
         </arrayController>
     </objects>
-    <resources>
-        <image name="AddApp" width="189" height="154"/>
-    </resources>
 </document>
