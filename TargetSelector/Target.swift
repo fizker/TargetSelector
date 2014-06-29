@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import Cocoa
-import JavaScriptCore
 
 @objc
 class Target : Printable {
@@ -35,98 +33,5 @@ class Target : Printable {
 
 	var description:String {
 		return name
-	}
-}
-
-class Targets {
-	let projectPath: String
-	init(projectPath:String) {
-		self.projectPath = projectPath
-	}
-
-	class func isValidProjectDir(projectPath:String) -> Bool {
-		let fileManager = NSFileManager.defaultManager()
-		let requiredFiles = ["Target.xcconfig", "products", "scripts/set-current-target.js"]
-		for file in requiredFiles {
-			if !fileManager.fileExistsAtPath("\(projectPath)/\(file)") {
-				return false
-			}
-		}
-		return true
-	}
-
-	func addTarget(imageFolder:String) {
-		let appStyles = AppStyles(filePath: imageFolder + "/AppStyles.json")
-
-		let errorPipe = NSPipe()
-		let outputPipe = NSPipe()
-		let task = NSTask()
-		task.launchPath = projectPath + "/add-product-gfx"
-		task.arguments = [imageFolder, appStyles.target]
-		task.standardError = errorPipe
-		task.standardOutput = outputPipe
-		task.launch()
-		task.waitUntilExit()
-
-		if task.terminationStatus != 0 {
-			let data = outputPipe.fileHandleForReading.readDataToEndOfFile()
-			let a = NSString(data: data, encoding: NSUTF8StringEncoding)
-			println(a)
-		}
-	}
-	func addTarget(imageFolder:NSURL) {
-		return addTarget(imageFolder.path)
-	}
-
-	func loadTargets() -> Target[] {
-		let fileManager = NSFileManager.defaultManager()
-		var error : NSError?
-
-		if let contents = fileManager.contentsOfDirectoryAtURL(
-			NSURL(fileURLWithPath: projectPath + "/products"),
-			includingPropertiesForKeys: [NSURLIsDirectoryKey],
-			options: .SkipsHiddenFiles,
-			error: &error) as? NSURL[]
-		{
-			return contents.map({
-				Target(url: $0)
-			})
-		}
-
-		println("Got error: \(error?.localizedDescription)")
-
-		return []
-	}
-
-	func getCurrentTarget() -> String {
-		let fileManager = NSFileManager.defaultManager()
-		var error : NSError?
-
-		if let content = String.stringWithContentsOfFile(projectPath + "/Target.xcconfig", encoding: NSUTF8StringEncoding, error: &error) {
-			let context = JSContext()
-			let result = context.evaluateScript("'\(content)'.match(/CURRENT_TARGET_NAME *= *(.+)/)[1]")
-			return result.toString()
-		}
-
-		return ""
-	}
-	func setCurrentTarget(target:String) {
-		let errorPipe = NSPipe()
-		let task = NSTask()
-		task.launchPath = "/usr/local/bin/node"
-		task.arguments = [projectPath + "/scripts/set-current-target.js", target]
-		task.standardError = errorPipe
-		task.launch()
-		task.waitUntilExit()
-
-		let file = errorPipe.fileHandleForReading
-		let data = file.readDataToEndOfFile()
-		if data.length > 0 {
-			let contents = NSString(data: data, encoding: NSUTF8StringEncoding)
-			println("Error with running set-current-target: \(contents)")
-		}
-	}
-	func setCurrentTarget(target:Target) {
-		setCurrentTarget(target.name)
 	}
 }
