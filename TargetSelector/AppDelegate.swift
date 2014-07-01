@@ -90,10 +90,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			switch buttonClicked {
 				case NSOKButton:
 					let urls = openPanel.URLs as NSURL[]
-					for url in urls {
-						self.targetsHelper?.addTarget(url)
+					var addTasks = AddAppTasks(projectPath: self.targetsHelper!.projectPath, appFolders: urls.map({ $0.path }))
+					addTasks.onComplete = {
+						println("Done with adding")
+						self.loadTargets()
 					}
-					self.loadTargets()
+					addTasks.onError = { status, msg in
+						println("Got error (\(status)): \(msg)")
+					}
+					addTasks.onProgress = { msg in
+						println("Add progress: \(msg)")
+					}
 				default:
 					break
 			}
