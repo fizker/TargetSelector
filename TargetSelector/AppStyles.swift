@@ -28,7 +28,3 @@ class AppStyles {
 	}
 
 }
-func stringFromDict(dict:Dictionary<String, AnyObject>, #key:String) -> String? {
-	let val : AnyObject? = dict[key]
-	return val as? String
-}
