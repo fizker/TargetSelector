@@ -24,7 +24,7 @@ class AppStyles {
 		name = stringFromDict(appStyles, key: "name")!
 
 		let context = JSContext()
-		target = context.evaluateScript("'\(server)'.match(/https?:\\/\\/([^.]+)\\./)[0]").toString()
+		target = context.evaluateScript("'\(server)'.match(/https?:\\/\\/([^.]+)\\./)[1]").toString()
 	}
 
 }

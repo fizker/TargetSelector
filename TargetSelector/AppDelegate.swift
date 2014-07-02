@@ -101,6 +101,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 					addTasks.onProgress = { msg in
 						println("Add progress: \(msg)")
 					}
+					addTasks.start()
 				default:
 					break
 			}

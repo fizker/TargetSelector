@@ -32,6 +32,7 @@ class AddAppTasks {
 			task.onProgress = onProgress
 			task.onError = onError
 			task.onComplete = start
+			task.start()
 		} else {
 			onComplete?()
 		}
@@ -52,6 +53,7 @@ class AddAppTask {
 	}
 
 	func start() {
+		println("TODO: Test if the folder contains proper files before blindly continuing.")
 		let appStyles = AppStyles(filePath: appFolder + "/AppStyles.json")
 
 		let errorPipe = NSPipe()
@@ -59,7 +61,7 @@ class AddAppTask {
 
 		outputPipe.fileHandleForReading.readabilityHandler = { fileHandle in
 			let string = stringFromFileHandle(fileHandle)
-			self.onProgress?(string!)
+			self.onProgress?(string!.trim())
 		}
 
 		let task = NSTask()
@@ -79,23 +81,9 @@ class AddAppTask {
 			if exitCode == 0 {
 				self.onComplete?()
 			} else {
-				self.onError?(status: 0, stringFromPipe(errorPipe))
+				self.onError?(status: Int(exitCode), stringFromPipe(errorPipe))
 			}
 		}
 		task.launch()
-
-		println("Exit code was \(task.terminationStatus)")
-		if task.terminationStatus != 0 {
-			if let a = stringFromPipe(outputPipe) {
-				println("Failed with stdout: \(a)")
-			} else {
-				println("No stdout")
-			}
-			if let a = stringFromPipe(errorPipe) {
-				println("Failed with stderr: \(a)")
-			} else {
-				println("No stderr")
-			}
-		}
 	}
 }
