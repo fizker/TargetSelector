@@ -9,7 +9,7 @@
 import Foundation
 
 class AddAppTasks {
-	var onProgress : ((String)->())?
+	var onProgress : ((Progress)->())?
 	var onComplete : (()->())?
 	var onError : ((status: Int, String?)->())?
 
@@ -28,7 +28,7 @@ class AddAppTasks {
 	func start() {
 		if let next = generator.next() {
 			let task = AddAppTask(projectPath: projectPath, appFolder: next)
-			onProgress?("Starting on \(next)")
+			//onProgress?("Starting on \(next)")
 			task.onProgress = onProgress
 			task.onError = onError
 			task.onComplete = start
@@ -40,7 +40,7 @@ class AddAppTasks {
 }
 
 class AddAppTask {
-	var onProgress : ((String)->())?
+	var onProgress : ((Progress)->())?
 	var onComplete : (()->())?
 	var onError : ((status: Int, String?)->())?
 
@@ -60,8 +60,11 @@ class AddAppTask {
 		let outputPipe = NSPipe()
 
 		outputPipe.fileHandleForReading.readabilityHandler = { fileHandle in
-			let string = stringFromFileHandle(fileHandle)
-			self.onProgress?(string!.trim())
+			let string = stringFromFileHandle(fileHandle)!.trim()
+			let progress = string.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
+			for s in progress {
+				self.onProgress?(Progress(json: s))
+			}
 		}
 
 		let task = NSTask()

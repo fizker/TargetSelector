@@ -98,8 +98,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 					addTasks.onError = { status, msg in
 						println("Got error (\(status)): \(msg)")
 					}
-					addTasks.onProgress = { msg in
-						println("Add progress: \(msg)")
+					addTasks.onProgress = { progress in
+						switch progress.type {
+							case .start:
+								println("Started on app containing \(progress.total) images")
+							case .update:
+								println("Add progress: \(progress.completed) of \(progress.total)")
+							case .end:
+								println("Done with app")
+						}
 					}
 					addTasks.start()
 				default:
