@@ -15,6 +15,7 @@
 		437E1C321962972C00A32927 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E1C311962972C00A32927 /* Utils.swift */; };
 		437E1C341962976D00A32927 /* AddAppTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E1C331962976D00A32927 /* AddAppTask.swift */; };
 		437E1C3719629B8C00A32927 /* String.ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E1C3619629B8C00A32927 /* String.ext.swift */; };
+		437E1C391965DD9500A32927 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E1C381965DD9500A32927 /* Progress.swift */; };
 		43E41E80195CAEAC00FD162D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E7F195CAEAC00FD162D /* main.swift */; };
 		43E41E82195CAEAC00FD162D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E81195CAEAC00FD162D /* AppDelegate.swift */; };
 		43E41E84195CAEAC00FD162D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43E41E83195CAEAC00FD162D /* Images.xcassets */; };
@@ -43,6 +44,7 @@
 		437E1C311962972C00A32927 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		437E1C331962976D00A32927 /* AddAppTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAppTask.swift; sourceTree = "<group>"; };
 		437E1C3619629B8C00A32927 /* String.ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.ext.swift; sourceTree = "<group>"; };
+		437E1C381965DD9500A32927 /* Progress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
 		43E41E7A195CAEAC00FD162D /* TargetSelector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TargetSelector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E41E7E195CAEAC00FD162D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43E41E7F195CAEAC00FD162D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				437E1C331962976D00A32927 /* AddAppTask.swift */,
 				43E41E9C195CB37D00FD162D /* Target.swift */,
 				434F41081960AB8700F14CBF /* Targets.swift */,
+				437E1C381965DD9500A32927 /* Progress.swift */,
 			);
 			name = Targets;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				437E1C3719629B8C00A32927 /* String.ext.swift in Sources */,
 				43E41EA0195CCB5C00FD162D /* TargetBridge.m in Sources */,
 				4323D0CC195EC6EA00A72B09 /* TargetCollectionViewItem.swift in Sources */,
+				437E1C391965DD9500A32927 /* Progress.swift in Sources */,
 				434F41091960AB8700F14CBF /* Targets.swift in Sources */,
 				43E41E82195CAEAC00FD162D /* AppDelegate.swift in Sources */,
 				43778C1B195CD51300BD417D /* TargetCollectionViewCell.swift in Sources */,
