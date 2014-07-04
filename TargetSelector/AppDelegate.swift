@@ -81,6 +81,49 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		})
 	}
 
+	var lastAddedTarget: Target?
+	@IBOutlet var addAppProgressSheet: NSPanel
+	@IBOutlet var addAddProgressView: AddAppProgressView
+	@IBAction func makeAddedAppCurrent(sender: AnyObject) {
+		if let target = lastAddedTarget {
+			targetsHelper?.setCurrentTarget(target)
+			loadTargets()
+		}
+		closeAddAppSheet(sender)
+	}
+
+	@IBAction func closeAddAppSheet(sender: AnyObject) {
+		NSApp.endSheet(addAppProgressSheet)
+		addAppProgressSheet.orderOut(sender)
+	}
+
+	@IBAction func addApp(sender: AnyObject) {
+		let openPanel = NSOpenPanel()
+		openPanel.prompt = "Add app"
+		openPanel.canChooseFiles = false
+		openPanel.canChooseDirectories = true
+		openPanel.allowsMultipleSelection = false
+		openPanel.beginSheetModalForWindow(window, completionHandler: { buttonClicked in
+			switch buttonClicked {
+				case NSOKButton:
+					NSApp.beginSheet(self.addAppProgressSheet, modalForWindow: self.window, modalDelegate: self, didEndSelector: nil, contextInfo: nil)
+					let urls = openPanel.URLs as NSURL[]
+					var addTasks = AddAppTasks(projectPath: self.targetsHelper!.projectPath, appFolders: urls.map({ $0.path }))
+					addTasks.onComplete = { newTargets in
+						self.lastAddedTarget = newTargets[0]
+						self.loadTargets()
+					}
+					addTasks.onError = { status, msg in
+						println("Got error (\(status)): \(msg)")
+					}
+					addTasks.onProgress = self.addAddProgressView.addProgress
+
+					addTasks.start()
+				default:
+					break
+			}
+		})
+	}
 
 	@IBOutlet var searchField: NSSearchField
 	@IBAction func setFocusToSearch(sender: AnyObject) {
