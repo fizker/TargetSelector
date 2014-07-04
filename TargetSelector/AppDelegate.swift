@@ -81,6 +81,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		})
 	}
 
+	@IBOutlet var addAppProgressSheet: NSPanel
+	@IBOutlet var addAddProgressView: AddAppProgressView
+	@IBAction func makeAddedAppCurrent(sender: AnyObject) {
+		println("Make last added current")
+	}
+
+	@IBAction func closeAddAppSheet(sender: AnyObject) {
+		NSApp.endSheet(addAppProgressSheet)
+		addAppProgressSheet.orderOut(sender)
+	}
+
 	@IBAction func addApp(sender: AnyObject) {
 		let openPanel = NSOpenPanel()
 		openPanel.prompt = "Add app"
@@ -89,25 +100,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		openPanel.beginSheetModalForWindow(window, completionHandler: { buttonClicked in
 			switch buttonClicked {
 				case NSOKButton:
+					NSApp.beginSheet(self.addAppProgressSheet, modalForWindow: self.window, modalDelegate: self, didEndSelector: nil, contextInfo: nil)
 					let urls = openPanel.URLs as NSURL[]
 					var addTasks = AddAppTasks(projectPath: self.targetsHelper!.projectPath, appFolders: urls.map({ $0.path }))
 					addTasks.onComplete = {
-						println("Done with adding")
 						self.loadTargets()
 					}
 					addTasks.onError = { status, msg in
 						println("Got error (\(status)): \(msg)")
 					}
-					addTasks.onProgress = { progress in
-						switch progress.type {
-							case .start:
-								println("Started on app containing \(progress.total) images")
-							case .update:
-								println("Add progress: \(progress.completed) of \(progress.total)")
-							case .end:
-								println("Done with app")
-						}
-					}
+					addTasks.onProgress = self.addAddProgressView.addProgress
+
 					addTasks.start()
 				default:
 					break
