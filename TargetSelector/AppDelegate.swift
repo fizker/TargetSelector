@@ -81,10 +81,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		})
 	}
 
+	var lastAddedTarget: Target?
 	@IBOutlet var addAppProgressSheet: NSPanel
 	@IBOutlet var addAddProgressView: AddAppProgressView
 	@IBAction func makeAddedAppCurrent(sender: AnyObject) {
-		println("Make last added current")
+		if let target = lastAddedTarget {
+			targetsHelper?.setCurrentTarget(target)
+			loadTargets()
+		}
+		closeAddAppSheet(sender)
 	}
 
 	@IBAction func closeAddAppSheet(sender: AnyObject) {
@@ -97,13 +102,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		openPanel.prompt = "Add app"
 		openPanel.canChooseFiles = false
 		openPanel.canChooseDirectories = true
+		openPanel.allowsMultipleSelection = false
 		openPanel.beginSheetModalForWindow(window, completionHandler: { buttonClicked in
 			switch buttonClicked {
 				case NSOKButton:
 					NSApp.beginSheet(self.addAppProgressSheet, modalForWindow: self.window, modalDelegate: self, didEndSelector: nil, contextInfo: nil)
 					let urls = openPanel.URLs as NSURL[]
 					var addTasks = AddAppTasks(projectPath: self.targetsHelper!.projectPath, appFolders: urls.map({ $0.path }))
-					addTasks.onComplete = {
+					addTasks.onComplete = { newTargets in
+						self.lastAddedTarget = newTargets[0]
 						self.loadTargets()
 					}
 					addTasks.onError = { status, msg in

@@ -10,7 +10,7 @@ import Foundation
 
 class AddAppTasks {
 	var onProgress : ((Progress)->())?
-	var onComplete : (()->())?
+	var onComplete : ((Target[])->())?
 	var onError : ((status: Int, String?)->())?
 
 	let projectPath : String
@@ -25,23 +25,28 @@ class AddAppTasks {
 		generator = appFolders.generate()
 	}
 
+	var targets: Target[] = []
+
 	func start() {
 		if let next = generator.next() {
 			let task = AddAppTask(projectPath: projectPath, appFolder: next)
 			//onProgress?("Starting on \(next)")
 			task.onProgress = onProgress
 			task.onError = onError
-			task.onComplete = start
+			task.onComplete = { target in
+				self.targets += target
+				self.start()
+			}
 			task.start()
 		} else {
-			onComplete?()
+			onComplete?(targets)
 		}
 	}
 }
 
 class AddAppTask {
 	var onProgress : ((Progress)->())?
-	var onComplete : (()->())?
+	var onComplete : ((Target)->())?
 	var onError : ((status: Int, String?)->())?
 
 	let projectPath : String
@@ -67,6 +72,8 @@ class AddAppTask {
 			}
 		}
 
+		let resultingUrl = NSURL(fileURLWithPath: "\(self.projectPath)/products/\(appStyles.target)")
+
 		let task = NSTask()
 		task.launchPath = projectPath + "/add-product-gfx"
 		task.arguments = [appFolder, appStyles.target]
@@ -82,7 +89,7 @@ class AddAppTask {
 		task.terminationHandler = { task in
 			let exitCode = task.terminationStatus
 			if exitCode == 0 {
-				self.onComplete?()
+				self.onComplete?(Target(url: resultingUrl))
 			} else {
 				self.onError?(status: Int(exitCode), stringFromPipe(errorPipe))
 			}
