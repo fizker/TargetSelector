@@ -107,7 +107,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			switch buttonClicked {
 				case NSOKButton:
 					NSApp.beginSheet(self.addAppProgressSheet, modalForWindow: self.window, modalDelegate: self, didEndSelector: nil, contextInfo: nil)
-					let urls = openPanel.URLs as NSURL[]
+					let urls = openPanel.URLs as [NSURL]
 					var addTasks = AddAppTasks(projectPath: self.targetsHelper!.projectPath, appFolders: urls.map({ $0.path }))
 					addTasks.onComplete = { newTargets in
 						self.lastAddedTarget = newTargets[0]
@@ -147,5 +147,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 	}
 
-	var targets : TargetBridge[] = []
+	var targets : [TargetBridge] = []
 }

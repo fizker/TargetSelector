@@ -26,7 +26,7 @@ class Targets {
 		return true
 	}
 
-	func loadTargets() -> Target[] {
+	func loadTargets() -> [Target] {
 		let fileManager = NSFileManager.defaultManager()
 		var error : NSError?
 
@@ -34,7 +34,7 @@ class Targets {
 			NSURL(fileURLWithPath: projectPath + "/products"),
 			includingPropertiesForKeys: [NSURLIsDirectoryKey],
 			options: .SkipsHiddenFiles,
-			error: &error) as? NSURL[]
+			error: &error) as? [NSURL]
 		{
 			return contents.map({
 				Target(url: $0)

@@ -10,22 +10,22 @@ import Foundation
 
 class AddAppTasks {
 	var onProgress : ((Progress)->())?
-	var onComplete : ((Target[])->())?
+	var onComplete : (([Target])->())?
 	var onError : ((status: Int, String?)->())?
 
 	let projectPath : String
-	let appFolders : String[]
+	let appFolders : [String]
 
 	var generator : IndexingGenerator<Array<String>>
 
-	init(projectPath: String, appFolders: String[]) {
+	init(projectPath: String, appFolders: [String]) {
 		self.projectPath = projectPath
 		self.appFolders = appFolders
 
 		generator = appFolders.generate()
 	}
 
-	var targets: Target[] = []
+	var targets: [Target] = []
 
 	func start() {
 		if let next = generator.next() {
@@ -81,7 +81,7 @@ class AddAppTask {
 		task.standardOutput = outputPipe
 		task.currentDirectoryPath = projectPath
 
-		var env = NSProcessInfo.processInfo().environment as Dictionary<String, AnyObject>
+		var env = NSProcessInfo.processInfo().environment as [String:AnyObject]
 		let path : AnyObject? = env["PATH"]
 		env["PATH"] = (path as String) + ":/usr/local/bin"
 		task.environment = env
