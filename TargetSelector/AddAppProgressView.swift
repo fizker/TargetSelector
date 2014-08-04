@@ -9,10 +9,10 @@
 import Cocoa
 
 class AddAppProgressView: NSView {
-	@IBOutlet var progressSpinner: NSProgressIndicator
-	@IBOutlet var progressBar: NSProgressIndicator
-	@IBOutlet var makeCurrentButton: NSButton
-	@IBOutlet var doneButton: NSButton
+	@IBOutlet var progressSpinner: NSProgressIndicator!
+	@IBOutlet var progressBar: NSProgressIndicator!
+	@IBOutlet var makeCurrentButton: NSButton!
+	@IBOutlet var doneButton: NSButton!
 
 	func addProgress(progress:Progress) {
 		progressBar.indeterminate = false;

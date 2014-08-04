@@ -34,7 +34,7 @@ class AddAppTasks {
 			task.onProgress = onProgress
 			task.onError = onError
 			task.onComplete = { target in
-				self.targets += target
+				self.targets.append(target)
 				self.start()
 			}
 			task.start()

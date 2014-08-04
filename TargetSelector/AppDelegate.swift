@@ -11,7 +11,7 @@ import Cocoa
 let USER_DEFAULTS_PROJECT_PATH = "projectPath"
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-	@IBOutlet var window: NSWindow
+	@IBOutlet var window: NSWindow!
 
 	var targetsHelper:Targets?
 
@@ -47,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			}
 		}
 
-		if !targetsHelper {
+		if targetsHelper == nil {
 			promptForProjectPath()
 		}
 	}
@@ -82,8 +82,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 
 	var lastAddedTarget: Target?
-	@IBOutlet var addAppProgressSheet: NSPanel
-	@IBOutlet var addAddProgressView: AddAppProgressView
+	@IBOutlet var addAppProgressSheet: NSPanel!
+	@IBOutlet var addAddProgressView: AddAppProgressView!
 	@IBAction func makeAddedAppCurrent(sender: AnyObject) {
 		if let target = lastAddedTarget {
 			targetsHelper?.setCurrentTarget(target)
@@ -125,12 +125,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		})
 	}
 
-	@IBOutlet var searchField: NSSearchField
+	@IBOutlet var searchField: NSSearchField!
 	@IBAction func setFocusToSearch(sender: AnyObject) {
 		searchField.becomeFirstResponder()
 	}
 
-	@IBOutlet var collectionView: NSCollectionView
+	@IBOutlet var collectionView: NSCollectionView!
 	var selectedIndexes: NSIndexSet = NSIndexSet() {
 		didSet {
 			let index = selectedIndexes.firstIndex
