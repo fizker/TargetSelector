@@ -29,19 +29,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 				let targetsHelper = Targets(projectPath: projectPath)
 				self.targetsHelper = targetsHelper
 
-				var i = 0
+				self.currentTarget = nil
 				let currentTarget = targetsHelper.getCurrentTarget()
 				let targets = targetsHelper.loadTargets()
 				for target in targets {
 					if target.name == currentTarget {
+						self.currentTarget = target
 						break
 					}
-					i++
 				}
 
 				self.targets = targets
-
-				selectedIndexes = NSIndexSet(index: i)
 			}
 		}
 
@@ -133,10 +131,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		didSet {
 			let index = selectedIndexes.firstIndex
 			if let targets = targetsHelper?.loadTargets() {
-				if index >= targets.count {
+				let searchText = searchField.stringValue
+				let filteredTargets = targets.filter() { target in
+					target.name.rangeOfString(searchText, options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil
+				}
+
+				if index >= filteredTargets.count {
 					return
 				}
-				let target = targets[index]
+
+				let target = filteredTargets[index]
+				currentTarget = target
 				targetsHelper?.setCurrentTarget(target)
 
 				let visibleRect = collectionView.frameForItemAtIndex(index)
@@ -146,4 +151,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 
 	dynamic var targets : [Target] = []
+
+	@IBOutlet var currentTargetView : NSToolbarItem!
+	var currentTarget : Target? {
+		didSet {
+			if let target = currentTarget {
+				currentTargetView.image = target.icon
+				currentTargetView.label = target.name
+			}
+		}
+	}
 }
