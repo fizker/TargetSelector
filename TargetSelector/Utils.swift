@@ -9,7 +9,7 @@
 import Foundation
 
 
-func stringFromDict(dict:[String:AnyObject], #key:String) -> String? {
+func stringFromDict(dict:NSDictionary, #key:String) -> String? {
 	let val : AnyObject? = dict[key]
 	return val as? String
 }
