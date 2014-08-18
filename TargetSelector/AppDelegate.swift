@@ -39,9 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 					i++
 				}
 
-				self.targets = targets.map({
-					return TargetBridge.newWithTarget($0)
-				})
+				self.targets = targets
 
 				selectedIndexes = NSIndexSet(index: i)
 			}
@@ -147,5 +145,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 	}
 
-	dynamic var targets : [TargetBridge] = []
+	dynamic var targets : [Target] = []
 }

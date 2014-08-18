@@ -7,16 +7,14 @@
 //
 
 import Foundation
+import AppKit
 
-@objc
-class Target : Printable {
+class Target : NSObject, Printable {
 	let productDir:NSURL
-	@objc
-	var name:String {
+	dynamic var name:String {
 		return productDir.absoluteString.lastPathComponent
 	}
-	@objc
-	let icon: NSImage
+	dynamic let icon: NSImage
 
 	init(url: NSURL) {
 		productDir = url
@@ -31,7 +29,7 @@ class Target : Printable {
 		icon = NSImage(contentsOfFile: iconPath)
 	}
 
-	var description:String {
+	override var description:String {
 		return name
 	}
 }

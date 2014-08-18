@@ -23,7 +23,6 @@
 		43E41E87195CAEAC00FD162D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E41E85195CAEAC00FD162D /* MainMenu.xib */; };
 		43E41E93195CAEAC00FD162D /* TargetSelectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E92195CAEAC00FD162D /* TargetSelectorTests.swift */; };
 		43E41E9D195CB37D00FD162D /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E9C195CB37D00FD162D /* Target.swift */; };
-		43E41EA0195CCB5C00FD162D /* TargetBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E9F195CCB5C00FD162D /* TargetBridge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,9 +56,6 @@
 		43E41E91195CAEAC00FD162D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43E41E92195CAEAC00FD162D /* TargetSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSelectorTests.swift; sourceTree = "<group>"; };
 		43E41E9C195CB37D00FD162D /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
-		43E41E9E195CCB5C00FD162D /* TargetSelector-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TargetSelector-Bridging-Header.h"; sourceTree = "<group>"; };
-		43E41E9F195CCB5C00FD162D /* TargetBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TargetBridge.m; sourceTree = "<group>"; };
-		43E41EA1195CCB6D00FD162D /* TargetBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TargetBridge.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +79,6 @@
 		434F41071960AB6200F14CBF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				43E41EA1195CCB6D00FD162D /* TargetBridge.h */,
-				43E41E9F195CCB5C00FD162D /* TargetBridge.m */,
 				43778C1A195CD51300BD417D /* TargetCollectionViewCell.swift */,
 				4323D0CB195EC6EA00A72B09 /* TargetCollectionViewItem.swift */,
 				437E1C3D1965E44300A32927 /* AddAppProgressView.swift */,
@@ -157,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				434F40F9195F385000F14CBF /* AddApp.png */,
-				43E41E9E195CCB5C00FD162D /* TargetSelector-Bridging-Header.h */,
 				43E41E7E195CAEAC00FD162D /* Info.plist */,
 				43E41E7F195CAEAC00FD162D /* main.swift */,
 			);
@@ -285,7 +278,6 @@
 				437E1C321962972C00A32927 /* Utils.swift in Sources */,
 				434F4100195F3D0300F14CBF /* AppStyles.swift in Sources */,
 				437E1C3719629B8C00A32927 /* String.ext.swift in Sources */,
-				43E41EA0195CCB5C00FD162D /* TargetBridge.m in Sources */,
 				4323D0CC195EC6EA00A72B09 /* TargetCollectionViewItem.swift in Sources */,
 				437E1C391965DD9500A32927 /* Progress.swift in Sources */,
 				434F41091960AB8700F14CBF /* Targets.swift in Sources */,
@@ -413,7 +405,6 @@
 				INFOPLIST_FILE = TargetSelector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "TargetSelector/TargetSelector-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -427,7 +418,6 @@
 				INFOPLIST_FILE = TargetSelector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "TargetSelector/TargetSelector-Bridging-Header.h";
 			};
 			name = Release;
 		};

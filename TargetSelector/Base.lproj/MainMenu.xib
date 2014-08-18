@@ -271,7 +271,7 @@
             </constraints>
             <point key="canvasLocation" x="528.5" y="197"/>
         </view>
-        <arrayController objectClassName="TargetBridge" editable="NO" id="kSi-HJ-S0q">
+        <arrayController objectClassName="Target" editable="NO" id="kSi-HJ-S0q">
             <declaredKeys>
                 <string>name</string>
                 <string>icon</string>
