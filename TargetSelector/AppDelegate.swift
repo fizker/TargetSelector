@@ -147,5 +147,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 	}
 
-	var targets : [TargetBridge] = []
+	dynamic var targets : [TargetBridge] = []
 }
