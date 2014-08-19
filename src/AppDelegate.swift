@@ -130,11 +130,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	var selectedIndexes: NSIndexSet = NSIndexSet() {
 		didSet {
 			let index = selectedIndexes.firstIndex
+			if index == NSNotFound {
+				return
+			}
 			if let targets = targetsHelper?.loadTargets() {
 				let searchText = searchField.stringValue
-				let filteredTargets = targets.filter() { target in
-					target.name.rangeOfString(searchText, options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil
-				}
+				let filteredTargets = searchText.isEmpty
+					? targets
+					: targets.filter() { target in
+						target.name.rangeOfString(searchText, options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil
+					}
 
 				if index >= filteredTargets.count {
 					return
