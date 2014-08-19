@@ -83,7 +83,7 @@
 				4323D0CB195EC6EA00A72B09 /* TargetCollectionViewItem.swift */,
 				437E1C3D1965E44300A32927 /* AddAppProgressView.swift */,
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		434F410A1960ABB800F14CBF /* Targets */ = {
@@ -94,7 +94,7 @@
 				434F41081960AB8700F14CBF /* Targets.swift */,
 				437E1C381965DD9500A32927 /* Progress.swift */,
 			);
-			name = Targets;
+			path = Targets;
 			sourceTree = "<group>";
 		};
 		437E1C3519629B7F00A32927 /* Extensions */ = {
@@ -102,7 +102,7 @@
 			children = (
 				437E1C3619629B8C00A32927 /* String.ext.swift */,
 			);
-			name = Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		437E1C3A1965E37100A32927 /* Interfaces */ = {
@@ -116,8 +116,8 @@
 		43E41E71195CAEAC00FD162D = {
 			isa = PBXGroup;
 			children = (
-				43E41E7C195CAEAC00FD162D /* TargetSelector */,
-				43E41E8F195CAEAC00FD162D /* TargetSelectorTests */,
+				43E41E7C195CAEAC00FD162D /* src */,
+				43E41E8F195CAEAC00FD162D /* Tests */,
 				43E41E7B195CAEAC00FD162D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -131,7 +131,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		43E41E7C195CAEAC00FD162D /* TargetSelector */ = {
+		43E41E7C195CAEAC00FD162D /* src */ = {
 			isa = PBXGroup;
 			children = (
 				434F40FF195F3D0300F14CBF /* AppStyles.swift */,
@@ -144,7 +144,7 @@
 				437E1C3A1965E37100A32927 /* Interfaces */,
 				43E41E7D195CAEAC00FD162D /* Supporting Files */,
 			);
-			path = TargetSelector;
+			path = src;
 			sourceTree = "<group>";
 		};
 		43E41E7D195CAEAC00FD162D /* Supporting Files */ = {
@@ -157,13 +157,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		43E41E8F195CAEAC00FD162D /* TargetSelectorTests */ = {
+		43E41E8F195CAEAC00FD162D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				43E41E92195CAEAC00FD162D /* TargetSelectorTests.swift */,
 				43E41E90195CAEAC00FD162D /* Supporting Files */,
 			);
-			path = TargetSelectorTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		43E41E90195CAEAC00FD162D /* Supporting Files */ = {
@@ -402,7 +402,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = TargetSelector/Info.plist;
+				INFOPLIST_FILE = src/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -415,7 +415,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = TargetSelector/Info.plist;
+				INFOPLIST_FILE = src/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -434,7 +434,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = TargetSelectorTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -451,7 +451,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = TargetSelectorTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
