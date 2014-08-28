@@ -17,7 +17,7 @@ class Progress {
 	let total = 0
 	let completed = 0
 	init(json:String) {
-		let data = json.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+		let data = json.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
 		var error : NSError?
 		let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &error) as NSDictionary// [String:AnyObject]
 

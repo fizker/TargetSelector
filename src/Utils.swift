@@ -14,13 +14,10 @@ func stringFromDict(dict:NSDictionary, #key:String) -> String? {
 	return val as? String
 }
 
-func stringFromFileHandle(file:NSFileHandle) -> String? {
-	if let data = file.availableData {
-		return NSString(data: data, encoding: NSUTF8StringEncoding)
-	}
-	return nil
+func stringFromFileHandle(file:NSFileHandle) -> String {
+	return NSString(data: file.availableData, encoding: NSUTF8StringEncoding)
 }
 
-func stringFromPipe(pipe:NSPipe) -> String? {
+func stringFromPipe(pipe:NSPipe) -> String {
 	return stringFromFileHandle(pipe.fileHandleForReading)
 }

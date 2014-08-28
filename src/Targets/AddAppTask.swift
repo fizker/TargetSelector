@@ -65,7 +65,7 @@ class AddAppTask {
 		let outputPipe = NSPipe()
 
 		outputPipe.fileHandleForReading.readabilityHandler = { fileHandle in
-			let string = stringFromFileHandle(fileHandle)!.trim()
+			let string = stringFromFileHandle(fileHandle).trim()
 			let progress = string.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
 			for s in progress {
 				self.onProgress?(Progress(json: s))

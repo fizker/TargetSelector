@@ -12,7 +12,7 @@ import AppKit
 class Target : NSObject, Printable {
 	let productDir:NSURL
 	dynamic var name:String {
-		return productDir.absoluteString.lastPathComponent
+		return productDir.absoluteString!.lastPathComponent
 	}
 	dynamic let icon: NSImage
 
@@ -20,8 +20,8 @@ class Target : NSObject, Printable {
 		productDir = url
 
 		let fileManager = NSFileManager.defaultManager()
-		let primaryIconPath = productDir.URLByAppendingPathComponent("Icon120.png").path
-		let secondaryIconPath = productDir.URLByAppendingPathComponent("Icon@2x.png").path
+		let primaryIconPath = productDir.URLByAppendingPathComponent("Icon120.png").path!
+		let secondaryIconPath = productDir.URLByAppendingPathComponent("Icon@2x.png").path!
 		let iconPath = fileManager.fileExistsAtPath(primaryIconPath)
 			? primaryIconPath
 			: secondaryIconPath

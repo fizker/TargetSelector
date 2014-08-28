@@ -61,13 +61,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			switch buttonClicked {
 				case NSOKButton:
 					let url = openPanel.URL
-					let path = url.path
+					let path = url.path!
 
 					if !Targets.isValidProjectDir(path) {
 						break
 					}
 
-					NSUserDefaults.standardUserDefaults().setObject(url.path, forKey: USER_DEFAULTS_PROJECT_PATH)
+					NSUserDefaults.standardUserDefaults().setObject(path, forKey: USER_DEFAULTS_PROJECT_PATH)
 					self.loadTargets()
 				case NSCancelButton:
 					break
@@ -104,7 +104,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 				case NSOKButton:
 					NSApp.beginSheet(self.addAppProgressSheet, modalForWindow: self.window, modalDelegate: self, didEndSelector: nil, contextInfo: nil)
 					let urls = openPanel.URLs as [NSURL]
-					var addTasks = AddAppTasks(projectPath: self.targetsHelper!.projectPath, appFolders: urls.map({ $0.path }))
+					let folders = urls.map { $0.path! }
+					var addTasks = AddAppTasks(projectPath: self.targetsHelper!.projectPath, appFolders: folders)
 					addTasks.onComplete = { newTargets in
 						self.lastAddedTarget = newTargets[0]
 						self.loadTargets()
