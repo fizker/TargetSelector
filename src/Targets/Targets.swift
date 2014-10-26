@@ -30,15 +30,17 @@ class Targets {
 		let fileManager = NSFileManager.defaultManager()
 		var error : NSError?
 
-		if let contents = fileManager.contentsOfDirectoryAtURL(
-			NSURL(fileURLWithPath: projectPath + "/products"),
-			includingPropertiesForKeys: [NSURLIsDirectoryKey],
-			options: .SkipsHiddenFiles,
-			error: &error) as? [NSURL]
-		{
-			return contents.map({
-				Target(url: $0)
-			})
+		if let url = NSURL(fileURLWithPath: projectPath + "/products") {
+			if let contents = fileManager.contentsOfDirectoryAtURL(
+				url,
+				includingPropertiesForKeys: [NSURLIsDirectoryKey],
+				options: .SkipsHiddenFiles,
+				error: &error) as? [NSURL]
+			{
+				return contents.map({
+					Target(url: $0)
+				})
+			}
 		}
 
 		println("Got error: \(error?.localizedDescription)")
@@ -50,7 +52,7 @@ class Targets {
 		let fileManager = NSFileManager.defaultManager()
 		var error : NSError?
 
-		if let content = String.stringWithContentsOfFile(projectPath + "/Target.xcconfig", encoding: NSUTF8StringEncoding, error: &error) {
+		if let content = NSString(contentsOfFile: projectPath + "/Target.xcconfig", encoding: NSUTF8StringEncoding, error: &error) {
 			let context = JSContext()
 			let result = context.evaluateScript("'\(content)'.match(/CURRENT_TARGET_NAME *= *(.+)/)[1]")
 			return result.toString()

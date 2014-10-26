@@ -65,14 +65,16 @@ class AddAppTask {
 		let outputPipe = NSPipe()
 
 		outputPipe.fileHandleForReading.readabilityHandler = { fileHandle in
-			let string = stringFromFileHandle(fileHandle).trim()
-			let progress = string.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
-			for s in progress {
-				self.onProgress?(Progress(json: s))
+			let string = stringFromFileHandle(fileHandle)?.trim()
+			let progress = string?.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
+			if let progress = progress {
+				for s in progress {
+					self.onProgress?(Progress(json: s))
+				}
 			}
 		}
 
-		let resultingUrl = NSURL(fileURLWithPath: "\(self.projectPath)/products/\(appStyles.target)")
+		let resultingUrl = NSURL(fileURLWithPath: "\(self.projectPath)/products/\(appStyles.target)")!
 
 		let task = NSTask()
 		task.launchPath = projectPath + "/add-product-gfx"

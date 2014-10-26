@@ -26,7 +26,7 @@ class Target : NSObject, Printable {
 			? primaryIconPath
 			: secondaryIconPath
 
-		icon = NSImage(contentsOfFile: iconPath)
+		icon = NSImage(contentsOfFile: iconPath)!
 	}
 
 	override var description:String {

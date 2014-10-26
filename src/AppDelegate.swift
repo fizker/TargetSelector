@@ -61,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			switch buttonClicked {
 				case NSOKButton:
 					let url = openPanel.URL
-					let path = url.path!
+					let path = url!.path!
 
 					if !Targets.isValidProjectDir(path) {
 						break
