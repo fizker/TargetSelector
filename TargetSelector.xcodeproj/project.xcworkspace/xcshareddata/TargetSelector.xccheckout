@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>62FD7D2D-0D2F-49E6-A5F0-DF259EC0F500</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TargetSelector</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>21E9A6C616B51B098B7D85ABA1512A0F7A9325FE</key>
+		<string>github.com:fizker/TargetSelector.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TargetSelector.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>21E9A6C616B51B098B7D85ABA1512A0F7A9325FE</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:fizker/TargetSelector.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>21E9A6C616B51B098B7D85ABA1512A0F7A9325FE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>21E9A6C616B51B098B7D85ABA1512A0F7A9325FE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TargetSelector</string>
+		</dict>
+	</array>
+</dict>
+</plist>
