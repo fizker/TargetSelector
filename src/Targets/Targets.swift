@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import JavaScriptCore
 
 class Targets {
 	let projectPath: String
@@ -53,9 +52,10 @@ class Targets {
 		var error : NSError?
 
 		if let content = NSString(contentsOfFile: projectPath + "/Target.xcconfig", encoding: NSUTF8StringEncoding, error: &error) {
-			let context = JSContext()
-			let result = context.evaluateScript("'\(content)'.match(/CURRENT_TARGET_NAME *= *(.+)/)[1]")
-			return result.toString()
+			let matches = content.match("CURRENT_TARGET_NAME *= *(.+)")
+			if let firstMatch = matches.first {
+				return content.substringWithRange(firstMatch.rangeAtIndex(1))
+			}
 		}
 
 		return ""
