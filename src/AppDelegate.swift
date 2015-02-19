@@ -82,7 +82,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	@IBOutlet var addAddProgressView: AddAppProgressView!
 	@IBAction func makeAddedAppCurrent(sender: AnyObject) {
 		if let target = lastAddedTarget {
-			targetsHelper?.setCurrentTarget(target)
+			changeTarget(target)
 			loadTargets()
 		}
 		closeAddAppSheet(sender)
@@ -148,11 +148,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 				let target = filteredTargets[index]
 				currentTarget = target
-				targetsHelper?.setCurrentTarget(target)
+				changeTarget(target)
 
 				let visibleRect = collectionView.frameForItemAtIndex(index)
 				collectionView.scrollRectToVisible(visibleRect)
 			}
+		}
+	}
+
+	func changeTarget(target:Target) {
+		if let errorMessage = targetsHelper?.setCurrentTarget(target) {
+			let alert = NSAlert()
+			alert.alertStyle = .CriticalAlertStyle
+			alert.messageText = errorMessage
+			alert.runModal()
 		}
 	}
 

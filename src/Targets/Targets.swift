@@ -60,7 +60,7 @@ class Targets {
 
 		return ""
 	}
-	func setCurrentTarget(target:String) {
+	func setCurrentTarget(target:String) -> String? {
 		let errorPipe = NSPipe()
 		let task = NSTask()
 		task.launchPath = "/usr/local/bin/node"
@@ -71,12 +71,15 @@ class Targets {
 
 		let file = errorPipe.fileHandleForReading
 		let data = file.readDataToEndOfFile()
-		if data.length > 0 {
-			let contents = NSString(data: data, encoding: NSUTF8StringEncoding)
-			println("Error with running set-current-target: \(contents)")
+		if let contents = NSString(data: data, encoding: NSUTF8StringEncoding) as? String {
+			if !contents.isEmpty {
+				return contents
+			}
 		}
+
+		return nil
 	}
-	func setCurrentTarget(target:Target) {
-		setCurrentTarget(target.name)
+	func setCurrentTarget(target:Target) -> String? {
+		return setCurrentTarget(target.name)
 	}
 }
