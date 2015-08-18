@@ -16,22 +16,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	var targetsHelper:Targets?
 
 	func applicationDidFinishLaunching(aNotification: NSNotification) {
-		loadTargets()
+		try! loadTargets()
 	}
 
 	func applicationWillTerminate(aNotification: NSNotification) {
 		// Insert code here to tear down your application
 	}
 
-	func loadTargets() {
+	func loadTargets() throws {
 		if let projectPath = NSUserDefaults.standardUserDefaults().stringForKey(USER_DEFAULTS_PROJECT_PATH) {
 			if Targets.isValidProjectDir(projectPath) {
 				let targetsHelper = Targets(projectPath: projectPath)
 				self.targetsHelper = targetsHelper
 
 				self.currentTarget = nil
-				let currentTarget = targetsHelper.getCurrentTarget()
-				let targets = targetsHelper.loadTargets()
+				let currentTarget = try targetsHelper.getCurrentTarget()
+				let targets = try targetsHelper.loadTargets()
 				for target in targets {
 					if target.name == currentTarget {
 						self.currentTarget = target
@@ -68,7 +68,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 					}
 
 					NSUserDefaults.standardUserDefaults().setObject(path, forKey: USER_DEFAULTS_PROJECT_PATH)
-					self.loadTargets()
+					try! self.loadTargets()
 				case NSCancelButton:
 					break
 				default:
@@ -86,19 +86,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	var selectedIndexes: NSIndexSet = NSIndexSet()
 
 	private func targetForIndex(index:Int) -> Target? {
-		guard let targets = targetsHelper?.loadTargets() else { return nil }
-		let searchText = searchField.stringValue
-		let filteredTargets = searchText.isEmpty
-			? targets
-			: targets.filter() { target in
-				target.name.rangeOfString(searchText, options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil
+		do {
+			let targets = try targetsHelper!.loadTargets()
+			let searchText = searchField.stringValue
+			let filteredTargets = searchText.isEmpty
+				? targets
+				: targets.filter() { target in
+					target.name.rangeOfString(searchText, options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil
+				}
+
+			if index >= filteredTargets.count || index < 0 {
+				return nil
 			}
 
-		if index >= filteredTargets.count || index < 0 {
+			return filteredTargets[index]
+		} catch {
+			print("Failed to find index:\n\(error)")
 			return nil
 		}
-
-		return filteredTargets[index]
 	}
 
 	dynamic var targets : [Target] = []
@@ -124,7 +129,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 
 		let target = targetForIndex(index)!
-		targetsHelper!.setCurrentTarget(target)
+		try! targetsHelper!.setCurrentTarget(target)
 		currentTarget = target
 	}
 

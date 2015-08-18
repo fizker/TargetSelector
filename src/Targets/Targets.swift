@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum TargetError : ErrorType {
+	case CouldNotSetTarget(String)
+	case CouldNotLoadTarget
+}
+
 class Targets {
 	let projectPath: String
 	init(projectPath:String) {
@@ -25,46 +30,36 @@ class Targets {
 		return true
 	}
 
-	func loadTargets() -> [Target] {
+	func loadTargets() throws -> [Target] {
 		let fileManager = NSFileManager.defaultManager()
 
-		do {
-			let url = NSURL(fileURLWithPath: projectPath + "/products")
-			let contents = try fileManager.contentsOfDirectoryAtURL(
-				url,
-				includingPropertiesForKeys: [NSURLIsDirectoryKey],
-				options: .SkipsHiddenFiles)
+		let url = NSURL(fileURLWithPath: projectPath + "/products")
+		let contents = try fileManager.contentsOfDirectoryAtURL(
+			url,
+			includingPropertiesForKeys: [NSURLIsDirectoryKey],
+			options: .SkipsHiddenFiles
+		)
 
-			return contents
-				.filter {
-					do {
-						let values = try $0.resourceValuesForKeys([NSURLIsDirectoryKey])
-						return values[NSURLIsDirectoryKey] as? Bool ?? false
-					} catch {
-						return false
-					}
+		return contents
+			.filter {
+				do {
+					let values = try $0.resourceValuesForKeys([NSURLIsDirectoryKey])
+					return values[NSURLIsDirectoryKey] as? Bool ?? false
+				} catch {
+					return false
 				}
-				.map { Target(url: $0) }
-		} catch let error as NSError {
-			print("Got error: \(error.localizedDescription)")
-		}
-
-		return []
-	}
-
-	func getCurrentTarget() -> String {
-		do {
-			let content = try NSString(contentsOfFile: projectPath + "/Target.xcconfig", encoding: NSUTF8StringEncoding)
-			let matches = content.match("CURRENT_TARGET_NAME *= *(.+)")
-			if let firstMatch = matches.first {
-				return content.substringWithRange(firstMatch.rangeAtIndex(1))
 			}
-		} catch {
-		}
-
-		return ""
+			.map { Target(url: $0) }
 	}
-	func setCurrentTarget(target:String) -> String? {
+
+	func getCurrentTarget() throws -> String {
+		let content = try NSString(contentsOfFile: projectPath + "/Target.xcconfig", encoding: NSUTF8StringEncoding)
+		let matches = content.match("CURRENT_TARGET_NAME *= *(.+)")
+		guard let firstMatch = matches.first else { throw TargetError.CouldNotLoadTarget }
+
+		return content.substringWithRange(firstMatch.rangeAtIndex(1))
+	}
+	func setCurrentTarget(target:String) throws {
 		let errorPipe = NSPipe()
 		let task = NSTask()
 		task.launchPath = "/usr/local/bin/node"
@@ -77,13 +72,11 @@ class Targets {
 		let data = file.readDataToEndOfFile()
 		if let contents = NSString(data: data, encoding: NSUTF8StringEncoding) as? String {
 			if !contents.isEmpty {
-				return contents
+				throw TargetError.CouldNotSetTarget(contents)
 			}
 		}
-
-		return nil
 	}
-	func setCurrentTarget(target:Target) -> String? {
-		return setCurrentTarget(target.name)
+	func setCurrentTarget(target:Target) throws {
+		return try setCurrentTarget(target.name)
 	}
 }
