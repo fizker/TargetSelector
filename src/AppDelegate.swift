@@ -131,29 +131,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	var selectedIndexes: NSIndexSet = NSIndexSet() {
 		didSet {
 			let index = selectedIndexes.firstIndex
-			if index == NSNotFound {
-				return
-			}
-			if let targets = targetsHelper?.loadTargets() {
-				let searchText = searchField.stringValue
-				let filteredTargets = searchText.isEmpty
-					? targets
-					: targets.filter() { target in
-						target.name.rangeOfString(searchText, options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil
-					}
+			guard let target = targetForIndex(index) else { return }
 
-				if index >= filteredTargets.count {
-					return
-				}
+			currentTarget = target
+			changeTarget(target)
 
-				let target = filteredTargets[index]
-				currentTarget = target
-				changeTarget(target)
-
-				let visibleRect = collectionView.frameForItemAtIndex(index)
-				collectionView.scrollRectToVisible(visibleRect)
-			}
+			let visibleRect = collectionView.frameForItemAtIndex(index)
+			collectionView.scrollRectToVisible(visibleRect)
 		}
+	}
+
+	private func targetForIndex(index:Int) -> Target? {
+		guard let targets = targetsHelper?.loadTargets() else { return nil }
+		let searchText = searchField.stringValue
+		let filteredTargets = searchText.isEmpty
+			? targets
+			: targets.filter() { target in
+				target.name.rangeOfString(searchText, options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil
+			}
+
+		if index >= filteredTargets.count || index < 0 {
+			return nil
+		}
+
+		return filteredTargets[index]
 	}
 
 	func changeTarget(target:Target) {
