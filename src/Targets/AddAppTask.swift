@@ -58,7 +58,7 @@ class AddAppTask {
 	}
 
 	func start() {
-		println("TODO: Test if the folder contains proper files before blindly continuing.")
+		print("TODO: Test if the folder contains proper files before blindly continuing.")
 		let appStyles = AppStyles(filePath: appFolder + "/AppStyles.json")
 
 		let errorPipe = NSPipe()
@@ -74,7 +74,7 @@ class AddAppTask {
 			}
 		}
 
-		let resultingUrl = NSURL(fileURLWithPath: "\(self.projectPath)/products/\(appStyles.target)")!
+		let resultingUrl = NSURL(fileURLWithPath: "\(self.projectPath)/products/\(appStyles.target)")
 
 		let task = NSTask()
 		task.launchPath = projectPath + "/add-product-gfx"
@@ -83,9 +83,9 @@ class AddAppTask {
 		task.standardOutput = outputPipe
 		task.currentDirectoryPath = projectPath
 
-		var env = NSProcessInfo.processInfo().environment as [NSObject:AnyObject]
-		let path : AnyObject? = env["PATH"]
-		env["PATH"] = (path as! String) + ":/usr/local/bin"
+		var env = NSProcessInfo.processInfo().environment
+		let path = env["PATH"] ?? ""
+		env["PATH"] = path + ":/usr/local/bin"
 		task.environment = env
 
 		task.terminationHandler = { task in

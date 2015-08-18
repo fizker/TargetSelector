@@ -27,38 +27,39 @@ class Targets {
 
 	func loadTargets() -> [Target] {
 		let fileManager = NSFileManager.defaultManager()
-		var error : NSError?
 
-		if let url = NSURL(fileURLWithPath: projectPath + "/products") {
-			if let contents = fileManager.contentsOfDirectoryAtURL(
+		do {
+			let url = NSURL(fileURLWithPath: projectPath + "/products")
+			let contents = try fileManager.contentsOfDirectoryAtURL(
 				url,
 				includingPropertiesForKeys: [NSURLIsDirectoryKey],
-				options: .SkipsHiddenFiles,
-				error: &error) as? [NSURL]
-			{
-				return contents
-					.filter {
-						var values = $0.resourceValuesForKeys([NSURLIsDirectoryKey], error: nil)
-						return values?[NSURLIsDirectoryKey] as? Bool ?? false
-					}
-					.map { Target(url: $0) }
-			}
-		}
+				options: .SkipsHiddenFiles)
 
-		println("Got error: \(error?.localizedDescription)")
+			return contents
+				.filter {
+					do {
+						let values = try $0.resourceValuesForKeys([NSURLIsDirectoryKey])
+						return values[NSURLIsDirectoryKey] as? Bool ?? false
+					} catch {
+						return false
+					}
+				}
+				.map { Target(url: $0) }
+		} catch let error as NSError {
+			print("Got error: \(error.localizedDescription)")
+		}
 
 		return []
 	}
 
 	func getCurrentTarget() -> String {
-		let fileManager = NSFileManager.defaultManager()
-		var error : NSError?
-
-		if let content = NSString(contentsOfFile: projectPath + "/Target.xcconfig", encoding: NSUTF8StringEncoding, error: &error) {
+		do {
+			let content = try NSString(contentsOfFile: projectPath + "/Target.xcconfig", encoding: NSUTF8StringEncoding)
 			let matches = content.match("CURRENT_TARGET_NAME *= *(.+)")
 			if let firstMatch = matches.first {
 				return content.substringWithRange(firstMatch.rangeAtIndex(1))
 			}
+		} catch {
 		}
 
 		return ""

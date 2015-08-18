@@ -103,15 +103,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			switch buttonClicked {
 				case NSOKButton:
 					NSApp.beginSheet(self.addAppProgressSheet, modalForWindow: self.window, modalDelegate: self, didEndSelector: nil, contextInfo: nil)
-					let urls = openPanel.URLs as! [NSURL]
+					let urls = openPanel.URLs
 					let folders = urls.map { $0.path! }
-					var addTasks = AddAppTasks(projectPath: self.targetsHelper!.projectPath, appFolders: folders)
+					let addTasks = AddAppTasks(projectPath: self.targetsHelper!.projectPath, appFolders: folders)
 					addTasks.onComplete = { newTargets in
 						self.lastAddedTarget = newTargets[0]
 						self.loadTargets()
 					}
 					addTasks.onError = { status, msg in
-						println("Got error (\(status)): \(msg)")
+						print("Got error (\(status)): \(msg)")
 					}
 					addTasks.onProgress = self.addAddProgressView.addProgress
 

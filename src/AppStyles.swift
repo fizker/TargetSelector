@@ -17,9 +17,9 @@ class AppStyles {
 	init(filePath:String) {
 		let fileManager = NSFileManager.defaultManager()
 		let appStylesContent = fileManager.contentsAtPath(filePath)
-		var error : NSError?
+
 		if let fileContent = appStylesContent {
-			let appStyles = NSJSONSerialization.JSONObjectWithData(fileContent, options: nil, error: &error) as! [String:AnyObject]
+			let appStyles = try! NSJSONSerialization.JSONObjectWithData(fileContent, options: []) as! [String:AnyObject]
 
 			server = stringFromDict(appStyles, key: "server")!
 			name = stringFromDict(appStyles, key: "name")!

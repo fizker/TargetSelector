@@ -14,23 +14,24 @@ protocol RegularExpressionMatchable {
 
 struct Regex : RegularExpressionMatchable {
 	let pattern: String
-	let options: NSRegularExpressionOptions!
+	let options: NSRegularExpressionOptions
 
 	var matcher: NSRegularExpression? {
-		return NSRegularExpression(pattern: pattern, options: options, error: nil)
+		do {
+			return try NSRegularExpression(pattern: pattern, options: options)
+		} catch _ {
+			return nil
+		}
 	}
 
-	init(pattern:String, options:NSRegularExpressionOptions = nil) {
+	init(pattern:String, options:NSRegularExpressionOptions = []) {
 		self.pattern = pattern
 		self.options = options
 	}
 
-	func test(string: String, options: NSMatchingOptions = nil) -> Bool {
-		if let matcher = matcher {
-			return matcher.numberOfMatchesInString(string, options: options, range: NSRangeFromString(string))
-				!= 0
-			}
-		return false
+	func test(string: String, options: NSMatchingOptions = []) -> Bool {
+		guard let matcher = matcher else { return false }
+		return matcher.numberOfMatchesInString(string, options: options, range: NSRangeFromString(string)) != 0
 	}
 }
 
@@ -51,5 +52,5 @@ extension Regex : StringLiteralConvertible {
 infix operator =~ { associativity left precedence 130 }
 
 func =~<T:RegularExpressionMatchable> (left:T, right: String) -> Bool {
-	return left.test(right, options: nil)
+	return left.test(right, options: [])
 }

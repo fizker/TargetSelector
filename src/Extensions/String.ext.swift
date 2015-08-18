@@ -9,8 +9,14 @@
 import Foundation
 
 extension String {
+	var lastPathComponent:String {
+		return (self as NSString).lastPathComponent
+	}
+}
+
+extension String {
 	var nsrange:NSRange {
-		return NSRange(location: 0, length: count(utf16))
+		return NSRange(location: 0, length: utf16.count)
 	}
 }
 
@@ -27,21 +33,21 @@ extension String {
 }
 
 extension String {
-	func match(regex: NSRegularExpression, options: NSMatchingOptions = nil) -> [NSTextCheckingResult] {
+	func match(regex: NSRegularExpression, options: NSMatchingOptions = []) -> [NSTextCheckingResult] {
 		let matches = regex.matchesInString(self, options: options, range: nsrange)
-		return matches as? [NSTextCheckingResult] ?? []
+		return matches
 	}
 }
 
 extension NSString {
-	func match(regex: Regex, options: NSMatchingOptions = nil) -> [NSTextCheckingResult] {
+	func match(regex: Regex, options: NSMatchingOptions = []) -> [NSTextCheckingResult] {
 		if regex.matcher == nil {
 			return []
 		}
 		return match(regex.matcher!, options: options)
 	}
 
-	func match(regex: NSRegularExpression, options: NSMatchingOptions = nil) -> [NSTextCheckingResult] {
+	func match(regex: NSRegularExpression, options: NSMatchingOptions = []) -> [NSTextCheckingResult] {
 		return (self as String).match(regex, options: options)
 	}
 }

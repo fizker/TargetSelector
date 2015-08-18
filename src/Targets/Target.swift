@@ -9,10 +9,10 @@
 import Foundation
 import AppKit
 
-class Target : NSObject, Printable {
+class Target : NSObject {
 	let productDir:NSURL
 	dynamic var name:String {
-		return productDir.absoluteString!.lastPathComponent
+		return productDir.absoluteString.lastPathComponent
 	}
 	dynamic let icon: NSImage
 
