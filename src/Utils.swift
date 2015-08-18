@@ -15,7 +15,7 @@ func stringFromDict(dict:NSDictionary, #key:String) -> String? {
 }
 
 func stringFromFileHandle(file:NSFileHandle) -> String? {
-	return NSString(data: file.availableData, encoding: NSUTF8StringEncoding)
+	return NSString(data: file.availableData, encoding: NSUTF8StringEncoding) as String?
 }
 
 func stringFromPipe(pipe:NSPipe) -> String? {

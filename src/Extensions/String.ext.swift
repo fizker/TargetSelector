@@ -9,8 +9,27 @@
 import Foundation
 
 extension String {
+	var nsrange:NSRange {
+		return NSRange(location: 0, length: count(utf16))
+	}
+}
+
+extension NSString {
+	var nsrange:NSRange {
+		return NSRange(location: 0, length: length)
+	}
+}
+
+extension String {
 	func trim() -> String {
 		return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+	}
+}
+
+extension String {
+	func match(regex: NSRegularExpression, options: NSMatchingOptions = nil) -> [NSTextCheckingResult] {
+		let matches = regex.matchesInString(self, options: options, range: nsrange)
+		return matches as? [NSTextCheckingResult] ?? []
 	}
 }
 
@@ -23,7 +42,6 @@ extension NSString {
 	}
 
 	func match(regex: NSRegularExpression, options: NSMatchingOptions = nil) -> [NSTextCheckingResult] {
-		let matches = regex.matchesInString(self, options: options, range: NSMakeRange(0, self.length))
-		return matches as? [NSTextCheckingResult] ?? []
+		return (self as String).match(regex, options: options)
 	}
 }

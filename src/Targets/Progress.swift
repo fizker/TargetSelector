@@ -14,12 +14,12 @@ enum ProgressType {
 
 class Progress {
 	let type: ProgressType
-	let total = 0
-	let completed = 0
+	let total:Int
+	let completed:Int
 	init(json:String) {
 		let data = json.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
 		var error : NSError?
-		let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &error) as NSDictionary// [String:AnyObject]
+		let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &error) as! [String:AnyObject]
 
 		let typeName = stringFromDict(dict, key: "type")!
 		switch typeName {
@@ -31,14 +31,7 @@ class Progress {
 				type = .start
 		}
 
-		var o : AnyObject? = dict["total"]
-		if let t = o as? Int {
-			total = t
-		}
-
-		o = dict["completed"]
-		if let t = o as? Int {
-			completed = t
-		}
+		total = dict["total"] as? Int ?? 0
+		completed = dict["completed"] as? Int ?? 0
 	}
 }

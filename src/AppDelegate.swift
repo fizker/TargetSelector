@@ -15,11 +15,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	var targetsHelper:Targets?
 
-	func applicationDidFinishLaunching(aNotification: NSNotification?) {
+	func applicationDidFinishLaunching(aNotification: NSNotification) {
 		loadTargets()
 	}
 
-	func applicationWillTerminate(aNotification: NSNotification?) {
+	func applicationWillTerminate(aNotification: NSNotification) {
 		// Insert code here to tear down your application
 	}
 
@@ -103,7 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			switch buttonClicked {
 				case NSOKButton:
 					NSApp.beginSheet(self.addAppProgressSheet, modalForWindow: self.window, modalDelegate: self, didEndSelector: nil, contextInfo: nil)
-					let urls = openPanel.URLs as [NSURL]
+					let urls = openPanel.URLs as! [NSURL]
 					let folders = urls.map { $0.path! }
 					var addTasks = AddAppTasks(projectPath: self.targetsHelper!.projectPath, appFolders: folders)
 					addTasks.onComplete = { newTargets in

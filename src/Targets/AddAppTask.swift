@@ -83,10 +83,9 @@ class AddAppTask {
 		task.standardOutput = outputPipe
 		task.currentDirectoryPath = projectPath
 
-		var env = NSProcessInfo.processInfo().environment as NSDictionary//[String:AnyObject]
+		var env = NSProcessInfo.processInfo().environment as [NSObject:AnyObject]
 		let path : AnyObject? = env["PATH"]
-		env.setValue((path as String) + ":/usr/local/bin", forKey: "PATH")
-		//env["PATH"] = (path as String) + ":/usr/local/bin"
+		env["PATH"] = (path as! String) + ":/usr/local/bin"
 		task.environment = env
 
 		task.terminationHandler = { task in
