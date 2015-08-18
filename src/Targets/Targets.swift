@@ -36,9 +36,12 @@ class Targets {
 				options: .SkipsHiddenFiles,
 				error: &error) as? [NSURL]
 			{
-				return contents.map({
-					Target(url: $0)
-				})
+				return contents
+					.filter {
+						var values = $0.resourceValuesForKeys([NSURLIsDirectoryKey], error: nil)
+						return values?[NSURLIsDirectoryKey] as? Bool ?? false
+					}
+					.map { Target(url: $0) }
 			}
 		}
 
