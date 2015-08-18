@@ -192,6 +192,11 @@
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="oCW-Gp-Imx"/>
                     <toolbarItem implicitItemIdentifier="4190827C-91B5-472E-98BF-19C5641B18C1" label="Current Selection" paletteLabel="Current Selection" tag="-1" id="dgA-EB-aqe"/>
+                    <toolbarItem implicitItemIdentifier="D52BDE2E-4F00-4EF9-BF57-2A5D08574E9A" label="Change target" paletteLabel="Change target" tag="-1" id="Myn-Uw-lLZ">
+                        <connections>
+                            <action selector="changeTarget:" target="Voe-Tx-rLC" id="48r-Zq-se2"/>
+                        </connections>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="iSL-59-pLm"/>
                     <toolbarItem implicitItemIdentifier="2136C105-F7A1-4530-A681-A250B6F58B7D" label="Search" paletteLabel="Search" id="b4n-cW-Xbv">
                         <nil key="toolTip"/>
@@ -217,12 +222,14 @@
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="oCW-Gp-Imx"/>
                     <toolbarItem reference="dgA-EB-aqe"/>
+                    <toolbarItem reference="oCW-Gp-Imx"/>
+                    <toolbarItem reference="Myn-Uw-lLZ"/>
                     <toolbarItem reference="iSL-59-pLm"/>
                     <toolbarItem reference="b4n-cW-Xbv"/>
                 </defaultToolbarItems>
             </toolbar>
+            <point key="canvasLocation" x="321" y="325"/>
         </window>
         <collectionViewItem id="8jE-Wc-676" customClass="TargetCollectionViewItem" customModule="TargetSelector" customModuleProvider="target">
             <connections>

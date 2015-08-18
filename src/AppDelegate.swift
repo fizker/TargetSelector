@@ -83,18 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 
 	@IBOutlet var collectionView: NSCollectionView!
-	var selectedIndexes: NSIndexSet = NSIndexSet() {
-		didSet {
-			let index = selectedIndexes.firstIndex
-			guard let target = targetForIndex(index) else { return }
-
-			currentTarget = target
-			changeTarget(target)
-
-			let visibleRect = collectionView.frameForItemAtIndex(index)
-			collectionView.scrollRectToVisible(visibleRect)
-		}
-	}
+	var selectedIndexes: NSIndexSet = NSIndexSet()
 
 	private func targetForIndex(index:Int) -> Target? {
 		guard let targets = targetsHelper?.loadTargets() else { return nil }
@@ -112,18 +101,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		return filteredTargets[index]
 	}
 
-	func changeTarget(target:Target) {
-		if let errorMessage = targetsHelper?.setCurrentTarget(target) {
-			let alert = NSAlert()
-			alert.alertStyle = .CriticalAlertStyle
-			alert.messageText = errorMessage
-			alert.runModal()
-		}
-	}
-
 	dynamic var targets : [Target] = []
 
 	@IBOutlet var currentTargetView : NSToolbarItem!
+	@IBAction func changeTarget(sender: AnyObject) {
+		let index = selectedIndexes.firstIndex
+		guard selectedIndexes.count == 1 && index != NSNotFound else {
+			let alert = NSAlert()
+			alert.alertStyle = .InformationalAlertStyle
+			alert.messageText = NSLocalizedString("Single selection required",
+				tableName: "ErrorMessages",
+				comment: "Title for the only-select-one alert"
+			)
+			alert.informativeText = NSLocalizedString(
+				"Please select a single item before attempting to change the " +
+				"current target",
+				tableName: "ErrorMessages",
+				comment: "Body text for the selection-required alert"
+			)
+			alert.runModal()
+			return
+		}
+
+		let target = targetForIndex(index)!
+		targetsHelper!.setCurrentTarget(target)
+		currentTarget = target
+	}
+
 	var currentTarget : Target? {
 		didSet {
 			if let target = currentTarget {
