@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6205"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8173.3"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -14,8 +15,6 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="TargetSelector" customModuleProvider="target">
             <connections>
-                <outlet property="addAddProgressView" destination="pCz-W1-DAp" id="eK8-50-ZKO"/>
-                <outlet property="addAppProgressSheet" destination="No2-xt-QPd" id="HGD-2i-6yV"/>
                 <outlet property="collectionView" destination="lgk-eT-ohF" id="wnb-le-fWp"/>
                 <outlet property="currentTargetView" destination="dgA-EB-aqe" id="z8t-Mq-tDu"/>
                 <outlet property="searchField" destination="PrS-dH-G9l" id="5Pb-Zr-cwx"/>
@@ -149,7 +148,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -198,8 +197,8 @@
                         <nil key="toolTip"/>
                         <size key="minSize" width="96" height="22"/>
                         <size key="maxSize" width="96" height="22"/>
-                        <searchField key="view" verticalHuggingPriority="750" id="PrS-dH-G9l">
-                            <rect key="frame" x="0.0" y="0.0" width="96" height="22"/>
+                        <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" id="PrS-dH-G9l">
+                            <rect key="frame" x="0.0" y="14" width="96" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="3VA-KL-aol">
                                 <font key="font" metaFont="system"/>
@@ -216,14 +215,8 @@
                             </connections>
                         </searchField>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="5B4AE37D-7138-44F4-BB29-A8740226F558" label="Add app" paletteLabel="Add app" tag="-1" image="AddApp" id="0zE-h7-xTf">
-                        <connections>
-                            <action selector="addApp:" target="Voe-Tx-rLC" id="pFp-GA-xYZ"/>
-                        </connections>
-                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="0zE-h7-xTf"/>
                     <toolbarItem reference="oCW-Gp-Imx"/>
                     <toolbarItem reference="dgA-EB-aqe"/>
                     <toolbarItem reference="iSL-59-pLm"/>
@@ -273,7 +266,7 @@
                 <constraint firstAttribute="trailing" secondItem="k4h-Mt-6ND" secondAttribute="trailing" constant="5" id="cAd-bX-ti2"/>
                 <constraint firstAttribute="centerX" secondItem="yqX-nH-27a" secondAttribute="centerX" id="v9e-I5-y3T"/>
             </constraints>
-            <point key="canvasLocation" x="528.5" y="197"/>
+            <point key="canvasLocation" x="726" y="243"/>
         </view>
         <arrayController objectClassName="Target" editable="NO" id="kSi-HJ-S0q">
             <declaredKeys>
@@ -289,66 +282,5 @@
                 </binding>
             </connections>
         </arrayController>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="No2-xt-QPd" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="167" y="107" width="249" height="99"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
-            <view key="contentView" id="pCz-W1-DAp" customClass="AddAppProgressView" customModule="TargetSelector" customModuleProvider="target">
-                <rect key="frame" x="0.0" y="0.0" width="249" height="99"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <progressIndicator maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="7Gg-Uz-Yjo">
-                        <rect key="frame" x="20" y="60" width="209" height="20"/>
-                    </progressIndicator>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KL3-18-Ghi">
-                        <rect key="frame" x="161" y="13" width="74" height="32"/>
-                        <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0kj-ve-mtb">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="closeAddAppSheet:" target="Voe-Tx-rLC" id="fVH-W9-M6r"/>
-                        </connections>
-                    </button>
-                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="QsZ-Gf-MTw">
-                        <rect key="frame" x="20" y="22" width="16" height="16"/>
-                    </progressIndicator>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gVG-sa-wVe">
-                        <rect key="frame" x="38" y="13" width="123" height="32"/>
-                        <buttonCell key="cell" type="push" title="Make current" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sb0-gO-4sm">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="makeAddedAppCurrent:" target="Voe-Tx-rLC" id="2lE-5L-qJh"/>
-                        </connections>
-                    </button>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="QsZ-Gf-MTw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pCz-W1-DAp" secondAttribute="leading" constant="20" symbolic="YES" id="2fv-Gm-qh7"/>
-                    <constraint firstAttribute="trailing" secondItem="7Gg-Uz-Yjo" secondAttribute="trailing" constant="20" symbolic="YES" id="AR8-NE-pDM"/>
-                    <constraint firstAttribute="trailing" secondItem="KL3-18-Ghi" secondAttribute="trailing" constant="20" symbolic="YES" id="Rlo-vu-QP2"/>
-                    <constraint firstItem="KL3-18-Ghi" firstAttribute="top" secondItem="7Gg-Uz-Yjo" secondAttribute="bottom" constant="20" symbolic="YES" id="VG1-uC-Osk"/>
-                    <constraint firstItem="KL3-18-Ghi" firstAttribute="leading" secondItem="gVG-sa-wVe" secondAttribute="trailing" constant="12" symbolic="YES" id="Yjz-Z7-QzA"/>
-                    <constraint firstItem="gVG-sa-wVe" firstAttribute="centerY" secondItem="QsZ-Gf-MTw" secondAttribute="centerY" constant="-0.5" id="deV-UV-xTf"/>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="KL3-18-Ghi" secondAttribute="bottom" constant="20" symbolic="YES" id="kN9-X3-IEd"/>
-                    <constraint firstItem="7Gg-Uz-Yjo" firstAttribute="leading" secondItem="pCz-W1-DAp" secondAttribute="leading" constant="20" symbolic="YES" id="n7W-TB-7tX"/>
-                    <constraint firstItem="gVG-sa-wVe" firstAttribute="leading" secondItem="QsZ-Gf-MTw" secondAttribute="trailing" constant="8" symbolic="YES" id="sNn-NR-Twc"/>
-                    <constraint firstItem="7Gg-Uz-Yjo" firstAttribute="top" secondItem="pCz-W1-DAp" secondAttribute="top" constant="20" symbolic="YES" id="slV-Ho-m5t"/>
-                    <constraint firstItem="gVG-sa-wVe" firstAttribute="top" secondItem="7Gg-Uz-Yjo" secondAttribute="bottom" constant="20" symbolic="YES" id="wnL-V8-KSd"/>
-                </constraints>
-                <connections>
-                    <outlet property="doneButton" destination="KL3-18-Ghi" id="Heb-lH-0Il"/>
-                    <outlet property="makeCurrentButton" destination="gVG-sa-wVe" id="yvE-sz-eCE"/>
-                    <outlet property="progressBar" destination="7Gg-Uz-Yjo" id="TPE-2u-KpL"/>
-                    <outlet property="progressSpinner" destination="QsZ-Gf-MTw" id="Dnl-Qi-Msz"/>
-                </connections>
-            </view>
-            <point key="canvasLocation" x="621.5" y="-273.5"/>
-        </window>
     </objects>
-    <resources>
-        <image name="AddApp" width="189" height="154"/>
-    </resources>
 </document>
