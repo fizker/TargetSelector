@@ -141,4 +141,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			}
 		}
 	}
+
+	@IBAction func takeScreenshots(sender: AnyObject) {
+		guard selectedIndexes.count > 0 else {
+			let alert = NSAlert()
+			alert.alertStyle = .InformationalAlertStyle
+			alert.messageText = NSLocalizedString("Selection required",
+				tableName: "Screenshots",
+				comment: "Title for the selection-required-for-screenshots alert"
+			)
+			alert.informativeText = NSLocalizedString(
+				"Please select the items for which to take screenshots",
+				tableName: "Screenshots",
+				comment: "Body text for the selection-required-for-screenshots alert"
+			)
+			alert.runModal()
+			return
+		}
+
+		print("Take screenshots")
+	}
 }
