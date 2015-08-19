@@ -159,6 +159,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			return
 		}
 
-		print("Take screenshots")
+		let selectFolderPanel = NSOpenPanel()
+		selectFolderPanel.message = NSLocalizedString("Choose location for putting screenshots",
+			tableName: "Screenshots",
+			comment: "Panel title for select-output dialog"
+		)
+		selectFolderPanel.prompt = NSLocalizedString("Choose",
+			tableName: "Screenshots",
+			comment: "Button title for select-output dialog"
+		)
+		selectFolderPanel.canChooseDirectories = true
+		selectFolderPanel.canCreateDirectories = true
+		selectFolderPanel.canChooseFiles = false
+		selectFolderPanel.allowsMultipleSelection = false
+		selectFolderPanel.beginSheetModalForWindow(window) { buttonClicked in
+			switch buttonClicked {
+			case NSOKButton:
+				print(selectFolderPanel.URL.map { $0.absoluteString })
+			default: break
+			}
+		}
 	}
 }
