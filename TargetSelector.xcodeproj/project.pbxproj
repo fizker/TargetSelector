@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4323D0CC195EC6EA00A72B09 /* TargetCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4323D0CB195EC6EA00A72B09 /* TargetCollectionViewItem.swift */; };
+		434605151B84851500D6F51A /* TakeScreenshotsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434605141B84851500D6F51A /* TakeScreenshotsTask.swift */; };
 		434F40FA195F385000F14CBF /* AddApp.png in Resources */ = {isa = PBXBuildFile; fileRef = 434F40F9195F385000F14CBF /* AddApp.png */; };
 		434F4100195F3D0300F14CBF /* AppStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434F40FF195F3D0300F14CBF /* AppStyles.swift */; };
 		434F41091960AB8700F14CBF /* Targets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434F41081960AB8700F14CBF /* Targets.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		4323D0CB195EC6EA00A72B09 /* TargetCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetCollectionViewItem.swift; sourceTree = "<group>"; };
+		434605141B84851500D6F51A /* TakeScreenshotsTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakeScreenshotsTask.swift; sourceTree = "<group>"; };
 		434F40F9195F385000F14CBF /* AddApp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddApp.png; sourceTree = "<group>"; };
 		434F40FF195F3D0300F14CBF /* AppStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStyles.swift; sourceTree = "<group>"; };
 		434F41081960AB8700F14CBF /* Targets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Targets.swift; sourceTree = "<group>"; };
@@ -78,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		434605131B8480DA00D6F51A /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				434605141B84851500D6F51A /* TakeScreenshotsTask.swift */,
+			);
+			path = Screenshots;
+			sourceTree = "<group>";
+		};
 		434F41071960AB6200F14CBF /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +150,7 @@
 				437E1C311962972C00A32927 /* Utils.swift */,
 				43C8E31919A32FED0096116E /* Regex.swift */,
 				437E1C3519629B7F00A32927 /* Extensions */,
+				434605131B8480DA00D6F51A /* Screenshots */,
 				434F410A1960ABB800F14CBF /* Targets */,
 				434F41071960AB6200F14CBF /* Views */,
 				43E41E81195CAEAC00FD162D /* AppDelegate.swift */,
@@ -290,6 +301,7 @@
 				43E41E82195CAEAC00FD162D /* AppDelegate.swift in Sources */,
 				43778C1B195CD51300BD417D /* TargetCollectionViewCell.swift in Sources */,
 				437E1C341962976D00A32927 /* AddAppTask.swift in Sources */,
+				434605151B84851500D6F51A /* TakeScreenshotsTask.swift in Sources */,
 				43E41E80195CAEAC00FD162D /* main.swift in Sources */,
 				437E1C3E1965E44300A32927 /* AddAppProgressView.swift in Sources */,
 			);
