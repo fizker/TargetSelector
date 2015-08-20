@@ -15,7 +15,7 @@ class TakeScreenshotsTask : Task {
 	init(projectPath:String, target:Target) {
 		self.projectPath = projectPath
 		self.target = target
-		super.init(launchPath: projectPath + "/take-screenshots", arguments: [ target.name ])
+		super.init(launchPath: projectPath + "/scripts/take-screenshots", arguments: [ target.name ])
 
 		currentDirectoryPath = projectPath
 	}
