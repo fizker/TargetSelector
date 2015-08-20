@@ -17,6 +17,7 @@
             <connections>
                 <outlet property="collectionView" destination="lgk-eT-ohF" id="wnb-le-fWp"/>
                 <outlet property="currentTargetView" destination="dgA-EB-aqe" id="z8t-Mq-tDu"/>
+                <outlet property="screenshotProgressWindow" destination="rOv-8b-uVJ" id="xdo-Yp-coS"/>
                 <outlet property="searchField" destination="PrS-dH-G9l" id="5Pb-Zr-cwx"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -148,7 +149,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -295,5 +296,93 @@
                 </binding>
             </connections>
         </arrayController>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="rOv-8b-uVJ" customClass="ScreenshotsProgressWindow" customModule="TargetSelector" customModuleProvider="target">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="131" y="158" width="480" height="334"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" id="r6x-uW-Rb4">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="334"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="2Q6-i6-ROK">
+                        <rect key="frame" x="20" y="49" width="440" height="200"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="200" id="qoO-0N-d17"/>
+                        </constraints>
+                        <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="sNA-qd-bzA">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bd0-1s-zat">
+                        <rect key="frame" x="18" y="297" width="143" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Taking screenshots for" id="WWN-bA-T6n">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P7M-dt-aeK">
+                        <rect key="frame" x="165" y="297" width="156" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Target name placeholder" id="d23-cG-GbM">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DkP-PW-hnK">
+                        <rect key="frame" x="339" y="13" width="127" height="32"/>
+                        <buttonCell key="cell" type="push" title="Close window" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QK4-U7-zAd">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="closeWindow:" target="rOv-8b-uVJ" id="P9O-7S-f8P"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ePj-eA-qvg">
+                        <rect key="frame" x="250" y="13" width="89" height="32"/>
+                        <buttonCell key="cell" type="push" title="Kill task" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GP3-5h-dcC">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <connections>
+                                <action selector="killTask:" target="rOv-8b-uVJ" id="89D-Gs-gEt"/>
+                            </connections>
+                        </buttonCell>
+                    </button>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="MRk-t3-HPn">
+                        <rect key="frame" x="224" y="257" width="32" height="32"/>
+                    </progressIndicator>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="DkP-PW-hnK" secondAttribute="bottom" constant="20" symbolic="YES" id="0k6-D6-idW"/>
+                    <constraint firstItem="P7M-dt-aeK" firstAttribute="baseline" secondItem="Bd0-1s-zat" secondAttribute="baseline" id="64Z-di-RwX"/>
+                    <constraint firstItem="2Q6-i6-ROK" firstAttribute="top" secondItem="MRk-t3-HPn" secondAttribute="bottom" constant="8" symbolic="YES" id="6bn-Ph-lCs"/>
+                    <constraint firstAttribute="trailing" secondItem="DkP-PW-hnK" secondAttribute="trailing" constant="20" symbolic="YES" id="9M8-Jf-prI"/>
+                    <constraint firstItem="ePj-eA-qvg" firstAttribute="top" secondItem="2Q6-i6-ROK" secondAttribute="bottom" constant="8" symbolic="YES" id="DdR-xS-9c3"/>
+                    <constraint firstItem="ePj-eA-qvg" firstAttribute="baseline" secondItem="DkP-PW-hnK" secondAttribute="baseline" id="DqE-G8-Yui"/>
+                    <constraint firstAttribute="trailing" secondItem="2Q6-i6-ROK" secondAttribute="trailing" constant="20" symbolic="YES" id="EER-nA-3H8"/>
+                    <constraint firstItem="P7M-dt-aeK" firstAttribute="leading" secondItem="Bd0-1s-zat" secondAttribute="trailing" constant="8" id="Od2-Df-Pr2"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="P7M-dt-aeK" secondAttribute="trailing" constant="20" symbolic="YES" id="PZA-U7-Vz3"/>
+                    <constraint firstItem="MRk-t3-HPn" firstAttribute="centerX" secondItem="r6x-uW-Rb4" secondAttribute="centerX" id="Pyd-t5-fCQ"/>
+                    <constraint firstItem="MRk-t3-HPn" firstAttribute="top" secondItem="Bd0-1s-zat" secondAttribute="bottom" constant="8" id="c6H-dc-Qts"/>
+                    <constraint firstItem="DkP-PW-hnK" firstAttribute="leading" secondItem="ePj-eA-qvg" secondAttribute="trailing" constant="12" symbolic="YES" id="cwl-X9-PEu"/>
+                    <constraint firstItem="2Q6-i6-ROK" firstAttribute="leading" secondItem="r6x-uW-Rb4" secondAttribute="leading" constant="20" symbolic="YES" id="lap-Ud-Ww0"/>
+                    <constraint firstItem="Bd0-1s-zat" firstAttribute="top" secondItem="r6x-uW-Rb4" secondAttribute="top" constant="20" id="uqN-fh-RJz"/>
+                    <constraint firstItem="Bd0-1s-zat" firstAttribute="leading" secondItem="r6x-uW-Rb4" secondAttribute="leading" constant="20" id="zhl-LL-dXK"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="rKV-uf-QmP"/>
+                <outlet property="hideButton" destination="DkP-PW-hnK" id="C28-LZ-xx2"/>
+                <outlet property="killButton" destination="ePj-eA-qvg" id="M8z-Og-mlV"/>
+                <outlet property="progressField" destination="2Q6-i6-ROK" id="c9L-wE-pjx"/>
+                <outlet property="spinner" destination="MRk-t3-HPn" id="HbB-IG-uwH"/>
+                <outlet property="targetPlaceholder" destination="P7M-dt-aeK" id="Qqm-cm-rZq"/>
+            </connections>
+            <point key="canvasLocation" x="365" y="801.5"/>
+        </window>
     </objects>
 </document>

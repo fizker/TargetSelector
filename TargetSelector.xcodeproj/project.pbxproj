@@ -19,6 +19,7 @@
 		437E1C391965DD9500A32927 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E1C381965DD9500A32927 /* Progress.swift */; };
 		437E1C3E1965E44300A32927 /* AddAppProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437E1C3D1965E44300A32927 /* AddAppProgressView.swift */; };
 		43A9B03E1B863651001BAADB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9B03D1B863651001BAADB /* Task.swift */; };
+		43A9B0401B864328001BAADB /* ScreenshotsProgressWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9B03F1B864328001BAADB /* ScreenshotsProgressWindow.swift */; };
 		43C8E31A19A32FED0096116E /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C8E31919A32FED0096116E /* Regex.swift */; };
 		43E41E80195CAEAC00FD162D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E7F195CAEAC00FD162D /* main.swift */; };
 		43E41E82195CAEAC00FD162D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E81195CAEAC00FD162D /* AppDelegate.swift */; };
@@ -51,6 +52,7 @@
 		437E1C381965DD9500A32927 /* Progress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
 		437E1C3D1965E44300A32927 /* AddAppProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAppProgressView.swift; sourceTree = "<group>"; };
 		43A9B03D1B863651001BAADB /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		43A9B03F1B864328001BAADB /* ScreenshotsProgressWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotsProgressWindow.swift; sourceTree = "<group>"; };
 		43C8E31919A32FED0096116E /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		43E41E7A195CAEAC00FD162D /* TargetSelector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TargetSelector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E41E7E195CAEAC00FD162D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				434605141B84851500D6F51A /* TakeScreenshotsTask.swift */,
+				43A9B03F1B864328001BAADB /* ScreenshotsProgressWindow.swift */,
 			);
 			path = Screenshots;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				4323D0CC195EC6EA00A72B09 /* TargetCollectionViewItem.swift in Sources */,
 				437E1C391965DD9500A32927 /* Progress.swift in Sources */,
 				43A9B03E1B863651001BAADB /* Task.swift in Sources */,
+				43A9B0401B864328001BAADB /* ScreenshotsProgressWindow.swift in Sources */,
 				434F41091960AB8700F14CBF /* Targets.swift in Sources */,
 				43E41E82195CAEAC00FD162D /* AppDelegate.swift in Sources */,
 				43778C1B195CD51300BD417D /* TargetCollectionViewCell.swift in Sources */,
