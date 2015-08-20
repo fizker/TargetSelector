@@ -17,6 +17,7 @@
             <connections>
                 <outlet property="collectionView" destination="lgk-eT-ohF" id="wnb-le-fWp"/>
                 <outlet property="currentTargetView" destination="dgA-EB-aqe" id="z8t-Mq-tDu"/>
+                <outlet property="screenshotProgressWindow" destination="rOv-8b-uVJ" id="xdo-Yp-coS"/>
                 <outlet property="searchField" destination="PrS-dH-G9l" id="5Pb-Zr-cwx"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -220,11 +221,17 @@
                             </connections>
                         </searchField>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="3B149A0A-AA09-4724-8F5F-BDB2913EA8FA" label="Sceenshots" paletteLabel="Sceenshots" tag="-1" id="zU5-uF-COz">
+                        <connections>
+                            <action selector="takeScreenshots:" target="Voe-Tx-rLC" id="Awn-8v-kjh"/>
+                        </connections>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="dgA-EB-aqe"/>
                     <toolbarItem reference="oCW-Gp-Imx"/>
                     <toolbarItem reference="Myn-Uw-lLZ"/>
+                    <toolbarItem reference="zU5-uF-COz"/>
                     <toolbarItem reference="iSL-59-pLm"/>
                     <toolbarItem reference="b4n-cW-Xbv"/>
                 </defaultToolbarItems>
@@ -289,5 +296,113 @@
                 </binding>
             </connections>
         </arrayController>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="rOv-8b-uVJ" customClass="ScreenshotsProgressWindow" customModule="TargetSelector" customModuleProvider="target">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="131" y="158" width="480" height="346"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" id="r6x-uW-Rb4">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="346"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bd0-1s-zat">
+                        <rect key="frame" x="18" y="309" width="143" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Taking screenshots for" id="WWN-bA-T6n">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P7M-dt-aeK">
+                        <rect key="frame" x="165" y="309" width="156" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Target name placeholder" id="d23-cG-GbM">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DkP-PW-hnK">
+                        <rect key="frame" x="339" y="13" width="127" height="32"/>
+                        <buttonCell key="cell" type="push" title="Close window" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QK4-U7-zAd">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="closeWindow:" target="rOv-8b-uVJ" id="P9O-7S-f8P"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ePj-eA-qvg">
+                        <rect key="frame" x="250" y="13" width="89" height="32"/>
+                        <buttonCell key="cell" type="push" title="Kill task" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GP3-5h-dcC">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <connections>
+                                <action selector="killTask:" target="rOv-8b-uVJ" id="89D-Gs-gEt"/>
+                            </connections>
+                        </buttonCell>
+                    </button>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="MRk-t3-HPn">
+                        <rect key="frame" x="224" y="269" width="32" height="32"/>
+                    </progressIndicator>
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ja-50-CGL">
+                        <rect key="frame" x="20" y="61" width="440" height="200"/>
+                        <clipView key="contentView" id="eWY-XB-2Cd">
+                            <rect key="frame" x="1" y="1" width="438" height="198"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="2Q6-i6-ROK">
+                                    <rect key="frame" x="-1" y="-1" width="4" height="17"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" drawsBackground="YES" id="sNA-qd-bzA">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </clipView>
+                        <constraints>
+                            <constraint firstItem="2Q6-i6-ROK" firstAttribute="leading" secondItem="7Ja-50-CGL" secondAttribute="leading" id="8Tk-At-UtP"/>
+                            <constraint firstAttribute="height" constant="200" id="cbc-u8-gXr"/>
+                            <constraint firstItem="2Q6-i6-ROK" firstAttribute="top" secondItem="7Ja-50-CGL" secondAttribute="top" id="dTp-ZR-c55"/>
+                        </constraints>
+                        <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.5" horizontal="YES" id="QiM-gc-fzk">
+                            <rect key="frame" x="1" y="183" width="438" height="16"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="HGV-a5-QQG">
+                            <rect key="frame" x="423" y="1" width="16" height="198"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="DkP-PW-hnK" secondAttribute="bottom" constant="20" symbolic="YES" id="0k6-D6-idW"/>
+                    <constraint firstItem="P7M-dt-aeK" firstAttribute="baseline" secondItem="Bd0-1s-zat" secondAttribute="baseline" id="64Z-di-RwX"/>
+                    <constraint firstItem="7Ja-50-CGL" firstAttribute="leading" secondItem="r6x-uW-Rb4" secondAttribute="leading" constant="20" symbolic="YES" id="70N-Js-qiB"/>
+                    <constraint firstAttribute="trailing" secondItem="DkP-PW-hnK" secondAttribute="trailing" constant="20" symbolic="YES" id="9M8-Jf-prI"/>
+                    <constraint firstItem="ePj-eA-qvg" firstAttribute="baseline" secondItem="DkP-PW-hnK" secondAttribute="baseline" id="DqE-G8-Yui"/>
+                    <constraint firstItem="P7M-dt-aeK" firstAttribute="leading" secondItem="Bd0-1s-zat" secondAttribute="trailing" constant="8" id="Od2-Df-Pr2"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="P7M-dt-aeK" secondAttribute="trailing" constant="20" symbolic="YES" id="PZA-U7-Vz3"/>
+                    <constraint firstItem="MRk-t3-HPn" firstAttribute="centerX" secondItem="r6x-uW-Rb4" secondAttribute="centerX" id="Pyd-t5-fCQ"/>
+                    <constraint firstItem="ePj-eA-qvg" firstAttribute="top" secondItem="7Ja-50-CGL" secondAttribute="bottom" constant="20" symbolic="YES" id="XAT-TB-qvq"/>
+                    <constraint firstItem="7Ja-50-CGL" firstAttribute="top" secondItem="MRk-t3-HPn" secondAttribute="bottom" constant="8" symbolic="YES" id="XVE-da-rUf"/>
+                    <constraint firstItem="MRk-t3-HPn" firstAttribute="top" secondItem="Bd0-1s-zat" secondAttribute="bottom" constant="8" id="c6H-dc-Qts"/>
+                    <constraint firstItem="DkP-PW-hnK" firstAttribute="leading" secondItem="ePj-eA-qvg" secondAttribute="trailing" constant="12" symbolic="YES" id="cwl-X9-PEu"/>
+                    <constraint firstAttribute="trailing" secondItem="7Ja-50-CGL" secondAttribute="trailing" constant="20" symbolic="YES" id="sl6-wv-9WZ"/>
+                    <constraint firstItem="Bd0-1s-zat" firstAttribute="top" secondItem="r6x-uW-Rb4" secondAttribute="top" constant="20" id="uqN-fh-RJz"/>
+                    <constraint firstItem="Bd0-1s-zat" firstAttribute="leading" secondItem="r6x-uW-Rb4" secondAttribute="leading" constant="20" id="zhl-LL-dXK"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="rKV-uf-QmP"/>
+                <outlet property="hideButton" destination="DkP-PW-hnK" id="C28-LZ-xx2"/>
+                <outlet property="killButton" destination="ePj-eA-qvg" id="M8z-Og-mlV"/>
+                <outlet property="progressField" destination="2Q6-i6-ROK" id="c9L-wE-pjx"/>
+                <outlet property="spinner" destination="MRk-t3-HPn" id="HbB-IG-uwH"/>
+                <outlet property="targetPlaceholder" destination="P7M-dt-aeK" id="Qqm-cm-rZq"/>
+            </connections>
+            <point key="canvasLocation" x="365" y="801.5"/>
+        </window>
     </objects>
 </document>

@@ -23,8 +23,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// Insert code here to tear down your application
 	}
 
+	var projectPath:String? {
+		return NSUserDefaults.standardUserDefaults().stringForKey(USER_DEFAULTS_PROJECT_PATH)
+	}
+
 	func loadTargets() throws {
-		if let projectPath = NSUserDefaults.standardUserDefaults().stringForKey(USER_DEFAULTS_PROJECT_PATH) {
+		if let projectPath = projectPath {
 			if Targets.isValidProjectDir(projectPath) {
 				let targetsHelper = Targets(projectPath: projectPath)
 				self.targetsHelper = targetsHelper
@@ -140,5 +144,55 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 				currentTargetView.label = target.name
 			}
 		}
+	}
+
+	@IBOutlet weak var screenshotProgressWindow: ScreenshotsProgressWindow!
+	@IBAction func takeScreenshots(sender: AnyObject) {
+		guard selectedIndexes.count > 0 else {
+			let alert = NSAlert()
+			alert.alertStyle = .InformationalAlertStyle
+			alert.messageText = NSLocalizedString("Selection required",
+				tableName: "Screenshots",
+				comment: "Title for the selection-required-for-screenshots alert"
+			)
+			alert.informativeText = NSLocalizedString(
+				"Please select the items for which to take screenshots",
+				tableName: "Screenshots",
+				comment: "Body text for the selection-required-for-screenshots alert"
+			)
+			alert.runModal()
+			return
+		}
+
+		let target = targetForIndex(selectedIndexes.firstIndex)!
+
+		screenshotProgressWindow.prepareForTarget(target, projectPath: projectPath!) {
+			self.window.endSheet(self.screenshotProgressWindow)
+		}
+
+		window.beginSheet(screenshotProgressWindow, completionHandler: nil)
+
+		/*
+		let selectFolderPanel = NSOpenPanel()
+		selectFolderPanel.message = NSLocalizedString("Choose location for putting screenshots",
+			tableName: "Screenshots",
+			comment: "Panel title for select-output dialog"
+		)
+		selectFolderPanel.prompt = NSLocalizedString("Choose",
+			tableName: "Screenshots",
+			comment: "Button title for select-output dialog"
+		)
+		selectFolderPanel.canChooseDirectories = true
+		selectFolderPanel.canCreateDirectories = true
+		selectFolderPanel.canChooseFiles = false
+		selectFolderPanel.allowsMultipleSelection = false
+		selectFolderPanel.beginSheetModalForWindow(window) { buttonClicked in
+			switch buttonClicked {
+			case NSOKButton:
+				print(selectFolderPanel.URL.map { $0.absoluteString })
+			default: break
+			}
+		}
+		*/
 	}
 }
