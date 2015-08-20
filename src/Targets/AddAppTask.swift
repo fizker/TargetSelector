@@ -61,41 +61,18 @@ class AddAppTask {
 		print("TODO: Test if the folder contains proper files before blindly continuing.")
 		let appStyles = AppStyles(filePath: appFolder + "/AppStyles.json")
 
-		let errorPipe = NSPipe()
-		let outputPipe = NSPipe()
-
-		outputPipe.fileHandleForReading.readabilityHandler = { fileHandle in
-			let string = stringFromFileHandle(fileHandle)?.trim()
-			let progress = string?.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
-			if let progress = progress {
-				for s in progress {
-					self.onProgress?(Progress(json: s))
-				}
-			}
-		}
-
 		let resultingUrl = NSURL(fileURLWithPath: "\(self.projectPath)/products/\(appStyles.target)")
 
-		let task = NSTask()
-		task.launchPath = projectPath + "/add-product-gfx"
-		task.arguments = [appFolder, appStyles.target]
-		task.standardError = errorPipe
-		task.standardOutput = outputPipe
+		let task = Task(launchPath: projectPath + "/add-product-gfx", arguments: [appFolder, appStyles.target])
 		task.currentDirectoryPath = projectPath
-
-		var env = NSProcessInfo.processInfo().environment
-		let path = env["PATH"] ?? ""
-		env["PATH"] = path + ":/usr/local/bin"
-		task.environment = env
-
-		task.terminationHandler = { task in
-			let exitCode = task.terminationStatus
-			if exitCode == 0 {
-				self.onComplete?(Target(url: resultingUrl))
-			} else {
-				self.onError?(status: Int(exitCode), stringFromPipe(errorPipe))
+		task.onComplete = { self.onComplete?(Target(url: resultingUrl)) }
+		task.onError = onError
+		task.onProgress = {string in
+			let progress = string.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
+			for s in progress {
+				self.onProgress?(Progress(json: s))
 			}
 		}
-		task.launch()
+		task.start()
 	}
 }
