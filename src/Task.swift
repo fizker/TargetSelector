@@ -17,12 +17,18 @@ class Task {
 	var onComplete:(()->Void)?
 	var onError:((status:Int, String?)->Void)?
 
+	private let task:NSTask
+
 	init(launchPath:String, arguments:[String] = []) {
 		self.launchPath = launchPath
 		self.arguments = arguments
+
+		task = NSTask()
+
+		setupTask()
 	}
 
-	func start() {
+	private func setupTask() {
 		let errorPipe = NSPipe()
 		let outputPipe = NSPipe()
 
@@ -32,7 +38,6 @@ class Task {
 			}
 		}
 
-		let task = NSTask()
 		task.launchPath = launchPath
 		task.arguments = arguments
 		task.standardError = errorPipe
@@ -54,7 +59,13 @@ class Task {
 				self.onError?(status: Int(exitCode), errorPipe.stringContents)
 			}
 		}
+	}
 
+	func start() {
 		task.launch()
+	}
+
+	func stop() {
+		task.terminate()
 	}
 }
