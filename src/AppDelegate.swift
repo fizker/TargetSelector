@@ -23,8 +23,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// Insert code here to tear down your application
 	}
 
+	var projectPath:String? {
+		return NSUserDefaults.standardUserDefaults().stringForKey(USER_DEFAULTS_PROJECT_PATH)
+	}
+
 	func loadTargets() throws {
-		if let projectPath = NSUserDefaults.standardUserDefaults().stringForKey(USER_DEFAULTS_PROJECT_PATH) {
+		if let projectPath = projectPath {
 			if Targets.isValidProjectDir(projectPath) {
 				let targetsHelper = Targets(projectPath: projectPath)
 				self.targetsHelper = targetsHelper
@@ -142,6 +146,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 	}
 
+	@IBOutlet weak var screenshotProgressWindow: ScreenshotsProgressWindow!
 	@IBAction func takeScreenshots(sender: AnyObject) {
 		guard selectedIndexes.count > 0 else {
 			let alert = NSAlert()
@@ -159,6 +164,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			return
 		}
 
+		let target = targetForIndex(selectedIndexes.firstIndex)!
+
+		screenshotProgressWindow.prepareForTarget(target, projectPath: projectPath!) {
+			self.window.endSheet(self.screenshotProgressWindow)
+		}
+
+		window.beginSheet(screenshotProgressWindow, completionHandler: nil)
+
+		/*
 		let selectFolderPanel = NSOpenPanel()
 		selectFolderPanel.message = NSLocalizedString("Choose location for putting screenshots",
 			tableName: "Screenshots",
@@ -179,5 +193,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			default: break
 			}
 		}
+		*/
 	}
 }
