@@ -14,19 +14,19 @@ class AddAppProgressView: NSView {
 	@IBOutlet var makeCurrentButton: NSButton!
 	@IBOutlet var doneButton: NSButton!
 
-	func addProgress(progress:Progress) {
-		progressBar.indeterminate = false;
+	func addProgress(_ progress:Progress) {
+		progressBar.isIndeterminate = false;
 		progressBar.maxValue = CDouble(progress.total)
 		progressBar.doubleValue = CDouble(progress.completed)
 
 		switch progress.type {
 			case .start:
-				makeCurrentButton.enabled = false
-				doneButton.enabled = false
+				makeCurrentButton.isEnabled = false
+				doneButton.isEnabled = false
 				progressSpinner.startAnimation(self)
 			case .end:
-				makeCurrentButton.enabled = true
-				doneButton.enabled = true
+				makeCurrentButton.isEnabled = true
+				doneButton.isEnabled = true
 				progressSpinner.stopAnimation(self)
 			default:
 				break

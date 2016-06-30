@@ -10,10 +10,10 @@ import Cocoa
 
 class TargetCollectionViewItem: NSCollectionViewItem {
 
-	override var selected:Bool {
+	override var isSelected:Bool {
 		didSet {
 			if let cell = view as? TargetCollectionViewCell {
-				cell.selected = selected
+				cell.selected = isSelected
 			}
 		}
 	}

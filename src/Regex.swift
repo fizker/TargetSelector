@@ -9,29 +9,29 @@
 import Foundation
 
 protocol RegularExpressionMatchable {
-	func test(string:String, options: NSMatchingOptions) -> Bool
+	func test(_ string:String, options: RegularExpression.MatchingOptions) -> Bool
 }
 
 struct Regex : RegularExpressionMatchable {
 	let pattern: String
-	let options: NSRegularExpressionOptions
+	let options: RegularExpression.Options
 
-	var matcher: NSRegularExpression? {
+	var matcher: RegularExpression? {
 		do {
-			return try NSRegularExpression(pattern: pattern, options: options)
+			return try RegularExpression(pattern: pattern, options: options)
 		} catch _ {
 			return nil
 		}
 	}
 
-	init(pattern:String, options:NSRegularExpressionOptions = []) {
+	init(pattern:String, options:RegularExpression.Options = []) {
 		self.pattern = pattern
 		self.options = options
 	}
 
-	func test(string: String, options: NSMatchingOptions = []) -> Bool {
+	func test(_ string: String, options: RegularExpression.MatchingOptions = []) -> Bool {
 		guard let matcher = matcher else { return false }
-		return matcher.numberOfMatchesInString(string, options: options, range: NSRangeFromString(string)) != 0
+		return matcher.numberOfMatches(in: string, options: options, range: NSRangeFromString(string)) != 0
 	}
 }
 

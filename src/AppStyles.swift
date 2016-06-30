@@ -15,17 +15,17 @@ class AppStyles {
 	let target:String
 
 	init(filePath:String) {
-		let fileManager = NSFileManager.defaultManager()
-		let appStylesContent = fileManager.contentsAtPath(filePath)
+		let fileManager = FileManager.default()
+		let appStylesContent = fileManager.contents(atPath: filePath)
 
 		if let fileContent = appStylesContent {
-			let appStyles = try! NSJSONSerialization.JSONObjectWithData(fileContent, options: []) as! [String:AnyObject]
+			let appStyles = try! JSONSerialization.jsonObject(with: fileContent, options: []) as! [String:AnyObject]
 
 			server = stringFromDict(appStyles, key: "server")!
 			name = stringFromDict(appStyles, key: "name")!
 
 			let context = JSContext()
-			target = context.evaluateScript("'\(server)'.match(/https?:\\/\\/([^.]+)\\./)[1]").toString()
+			target = (context?.evaluateScript("'\(server)'.match(/https?:\\/\\/([^.]+)\\./)[1]").toString())!
 		} else {
 			// TODO: Add error handling
 			name = "Returntool"

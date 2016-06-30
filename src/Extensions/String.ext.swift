@@ -28,26 +28,26 @@ extension NSString {
 
 extension String {
 	func trim() -> String {
-		return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+		return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 	}
 }
 
 extension String {
-	func match(regex: NSRegularExpression, options: NSMatchingOptions = []) -> [NSTextCheckingResult] {
-		let matches = regex.matchesInString(self, options: options, range: nsrange)
+	func match(_ regex: RegularExpression, options: RegularExpression.MatchingOptions = []) -> [TextCheckingResult] {
+		let matches = regex.matches(in: self, options: options, range: nsrange)
 		return matches
 	}
 }
 
 extension NSString {
-	func match(regex: Regex, options: NSMatchingOptions = []) -> [NSTextCheckingResult] {
+	func match(_ regex: Regex, options: RegularExpression.MatchingOptions = []) -> [TextCheckingResult] {
 		if regex.matcher == nil {
 			return []
 		}
 		return match(regex.matcher!, options: options)
 	}
 
-	func match(regex: NSRegularExpression, options: NSMatchingOptions = []) -> [NSTextCheckingResult] {
+	func match(_ regex: RegularExpression, options: RegularExpression.MatchingOptions = []) -> [TextCheckingResult] {
 		return (self as String).match(regex, options: options)
 	}
 }

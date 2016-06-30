@@ -11,18 +11,18 @@ import Cocoa
 class TargetCollectionViewCell: NSView {
 	var selected:Bool = false {
 		didSet {
-			setNeedsDisplayInRect(visibleRect)
+			setNeedsDisplay(visibleRect)
 		}
 	}
 
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
 		if selected {
-			NSColor.blueColor().set()
+			NSColor.blue().set()
 		} else {
-			NSColor.clearColor().set()
+			NSColor.clear().set()
 		}
 		NSBezierPath(rect: dirtyRect).fill()
     }

@@ -13,24 +13,24 @@ class Task {
 	let arguments:[String]
 	var currentDirectoryPath:String?
 
-	var onProgress:(String->Void)?
+	var onProgress:((String)->Void)?
 	var onComplete:(()->Void)?
 	var onError:((status:Int, String?)->Void)?
 
-	private let task:NSTask
+	private let task:Foundation.Task
 
 	init(launchPath:String, arguments:[String] = []) {
 		self.launchPath = launchPath
 		self.arguments = arguments
 
-		task = NSTask()
+		task = Foundation.Task()
 
 		setupTask()
 	}
 
 	private func setupTask() {
-		let errorPipe = NSPipe()
-		let outputPipe = NSPipe()
+		let errorPipe = Pipe()
+		let outputPipe = Pipe()
 
 		outputPipe.fileHandleForReading.readabilityHandler = { fileHandle in
 			if let string = fileHandle.stringContents {
@@ -46,7 +46,7 @@ class Task {
 			task.currentDirectoryPath = cwd
 		}
 
-		var env = NSProcessInfo.processInfo().environment
+		var env = ProcessInfo.processInfo().environment
 		let path = env["PATH"] ?? ""
 		env["PATH"] = path + ":/usr/local/bin"
 		task.environment = env

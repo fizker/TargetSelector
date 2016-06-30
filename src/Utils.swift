@@ -9,20 +9,20 @@
 import Foundation
 
 
-func stringFromDict(dict:NSDictionary, key:String) -> String? {
+func stringFromDict(_ dict:NSDictionary, key:String) -> String? {
 	let val : AnyObject? = dict[key]
 	return val as? String
 }
 
-extension NSFileHandle {
+extension FileHandle {
 	var stringContents:String? {
-		guard let content = NSString(data: availableData, encoding: NSUTF8StringEncoding) as String? else { return nil }
+		guard let content = NSString(data: availableData, encoding: String.Encoding.utf8.rawValue) as String? else { return nil }
 		let trimmedContent = content.trim()
 		return trimmedContent.isEmpty ? nil : trimmedContent
 	}
 }
 
-extension NSPipe {
+extension Pipe {
 	var stringContents:String? {
 		return fileHandleForReading.stringContents
 	}

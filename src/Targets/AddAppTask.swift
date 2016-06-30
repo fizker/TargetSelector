@@ -16,13 +16,13 @@ class AddAppTasks {
 	let projectPath : String
 	let appFolders : [String]
 
-	var generator : IndexingGenerator<Array<String>>
+	var generator : IndexingIterator<Array<String>>
 
 	init(projectPath: String, appFolders: [String]) {
 		self.projectPath = projectPath
 		self.appFolders = appFolders
 
-		generator = appFolders.generate()
+		generator = appFolders.makeIterator()
 	}
 
 	var targets: [Target] = []
@@ -61,14 +61,14 @@ class AddAppTask {
 		print("TODO: Test if the folder contains proper files before blindly continuing.")
 		let appStyles = AppStyles(filePath: appFolder + "/AppStyles.json")
 
-		let resultingUrl = NSURL(fileURLWithPath: "\(self.projectPath)/products/\(appStyles.target)")
+		let resultingUrl = URL(fileURLWithPath: "\(self.projectPath)/products/\(appStyles.target)")
 
 		let task = Task(launchPath: projectPath + "/add-product-gfx", arguments: [appFolder, appStyles.target])
 		task.currentDirectoryPath = projectPath
 		task.onComplete = { self.onComplete?(Target(url: resultingUrl)) }
 		task.onError = onError
 		task.onProgress = {string in
-			let progress = string.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
+			let progress = string.components(separatedBy: CharacterSet.newlines)
 			for s in progress {
 				self.onProgress?(Progress(json: s))
 			}

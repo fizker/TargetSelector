@@ -20,15 +20,15 @@ class ScreenshotsProgressWindow : NSWindow {
 
 	private var task:TakeScreenshotsTask?
 
-	func prepareForTarget(target:Target, projectPath:String, onClose:OnClose) {
+	func prepareForTarget(_ target:Target, projectPath:String, onClose:OnClose) {
 		self.onClose = onClose
 
 		progressField.stringValue = ""
 		targetPlaceholder.stringValue = target.name
-		spinner.hidden = false
+		spinner.isHidden = false
 		spinner.startAnimation(nil)
-		killButton.enabled = true
-		hideButton.enabled = false
+		killButton.isEnabled = true
+		hideButton.isEnabled = false
 
 		let screenshotTask = TakeScreenshotsTask(projectPath: projectPath, target: target)
 		screenshotTask.onError = { status, message in
@@ -48,23 +48,23 @@ class ScreenshotsProgressWindow : NSWindow {
 		task = screenshotTask
 	}
 
-	func updateProgress(message:String) {
+	func updateProgress(_ message:String) {
 		progressField.stringValue = progressField.stringValue + "\n" + message
 	}
 
-	@IBAction func killTask(sender: AnyObject) {
+	@IBAction func killTask(_ sender: AnyObject) {
 		task?.stop()
 	}
 
-	@IBAction func closeWindow(sender: AnyObject) {
+	@IBAction func closeWindow(_ sender: AnyObject) {
 		onClose?()
 		onClose = nil
 	}
 
 	func taskStopped() {
 		spinner.stopAnimation(nil)
-		spinner.hidden = true
-		hideButton.enabled = true
-		killButton.enabled = false
+		spinner.isHidden = true
+		hideButton.isEnabled = true
+		killButton.isEnabled = false
 	}
 }

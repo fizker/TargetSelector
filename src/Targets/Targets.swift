@@ -8,9 +8,9 @@
 
 import Foundation
 
-enum TargetError : ErrorType {
-	case CouldNotSetTarget(String)
-	case CouldNotLoadTarget
+enum TargetError : ErrorProtocol {
+	case couldNotSetTarget(String)
+	case couldNotLoadTarget
 }
 
 class Targets {
@@ -19,11 +19,11 @@ class Targets {
 		self.projectPath = projectPath
 	}
 
-	class func isValidProjectDir(projectPath:String) -> Bool {
-		let fileManager = NSFileManager.defaultManager()
+	class func isValidProjectDir(_ projectPath:String) -> Bool {
+		let fileManager = FileManager.default()
 		let requiredFiles = ["Target.xcconfig", "products", "scripts/set-current-target.js"]
 		for file in requiredFiles {
-			if !fileManager.fileExistsAtPath("\(projectPath)/\(file)") {
+			if !fileManager.fileExists(atPath: "\(projectPath)/\(file)") {
 				return false
 			}
 		}
@@ -31,20 +31,20 @@ class Targets {
 	}
 
 	func loadTargets() throws -> [Target] {
-		let fileManager = NSFileManager.defaultManager()
+		let fileManager = FileManager.default()
 
-		let url = NSURL(fileURLWithPath: projectPath + "/products")
-		let contents = try fileManager.contentsOfDirectoryAtURL(
-			url,
-			includingPropertiesForKeys: [NSURLIsDirectoryKey],
-			options: .SkipsHiddenFiles
+		let url = URL(fileURLWithPath: projectPath + "/products")
+		let contents = try fileManager.contentsOfDirectory(
+			at: url,
+			includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue],
+			options: .skipsHiddenFiles
 		)
 
 		return contents
 			.filter {
 				do {
-					let values = try $0.resourceValuesForKeys([NSURLIsDirectoryKey])
-					return values[NSURLIsDirectoryKey] as? Bool ?? false
+					let values = try ($0 as NSURL).resourceValues(forKeys: [URLResourceKey.isDirectoryKey])
+					return values[URLResourceKey.isDirectoryKey] as? Bool ?? false
 				} catch {
 					return false
 				}
@@ -53,15 +53,15 @@ class Targets {
 	}
 
 	func getCurrentTarget() throws -> String {
-		let content = try NSString(contentsOfFile: projectPath + "/Target.xcconfig", encoding: NSUTF8StringEncoding)
+		let content = try NSString(contentsOfFile: projectPath + "/Target.xcconfig", encoding: String.Encoding.utf8.rawValue)
 		let matches = content.match("CURRENT_TARGET_NAME *= *(.+)")
-		guard let firstMatch = matches.first else { throw TargetError.CouldNotLoadTarget }
+		guard let firstMatch = matches.first else { throw TargetError.couldNotLoadTarget }
 
-		return content.substringWithRange(firstMatch.rangeAtIndex(1))
+		return content.substring(with: firstMatch.range(at: 1))
 	}
-	func setCurrentTarget(target:String) throws {
-		let errorPipe = NSPipe()
-		let task = NSTask()
+	func setCurrentTarget(_ target:String) throws {
+		let errorPipe = Pipe()
+		let task = Foundation.Task()
 		task.launchPath = "/usr/local/bin/node"
 		task.arguments = [projectPath + "/scripts/set-current-target.js", target]
 		task.standardError = errorPipe
@@ -70,13 +70,13 @@ class Targets {
 
 		let file = errorPipe.fileHandleForReading
 		let data = file.readDataToEndOfFile()
-		if let contents = NSString(data: data, encoding: NSUTF8StringEncoding) as? String {
+		if let contents = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String {
 			if !contents.isEmpty {
-				throw TargetError.CouldNotSetTarget(contents)
+				throw TargetError.couldNotSetTarget(contents)
 			}
 		}
 	}
-	func setCurrentTarget(target:Target) throws {
+	func setCurrentTarget(_ target:Target) throws {
 		return try setCurrentTarget(target.name)
 	}
 }

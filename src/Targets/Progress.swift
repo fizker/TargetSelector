@@ -17,8 +17,8 @@ class Progress {
 	let total:Int
 	let completed:Int
 	init(json:String) {
-		let data = json.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
-		let dict = try! NSJSONSerialization.JSONObjectWithData(data, options: []) as! [String:AnyObject]
+		let data = json.data(using: String.Encoding.utf8, allowLossyConversion: false)!
+		let dict = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:AnyObject]
 
 		let typeName = stringFromDict(dict, key: "type")!
 		switch typeName {

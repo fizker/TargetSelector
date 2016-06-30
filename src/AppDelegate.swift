@@ -15,16 +15,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	var targetsHelper:Targets?
 
-	func applicationDidFinishLaunching(aNotification: NSNotification) {
+	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		try! loadTargets()
 	}
 
-	func applicationWillTerminate(aNotification: NSNotification) {
+	func applicationWillTerminate(_ aNotification: Notification) {
 		// Insert code here to tear down your application
 	}
 
 	var projectPath:String? {
-		return NSUserDefaults.standardUserDefaults().stringForKey(USER_DEFAULTS_PROJECT_PATH)
+		return UserDefaults.standard().string(forKey: USER_DEFAULTS_PROJECT_PATH)
 	}
 
 	func loadTargets() throws {
@@ -52,7 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 	}
 
-	@IBAction func promptForProjectPath(sender: AnyObject) {
+	@IBAction func promptForProjectPath(_ sender: AnyObject) {
 		promptForProjectPath()
 	}
 
@@ -61,17 +61,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		openPanel.prompt = "Select ReturnTool project folder"
 		openPanel.canChooseDirectories = true
 		openPanel.canChooseFiles = false
-		openPanel.beginSheetModalForWindow(window, completionHandler: { buttonClicked in
+		openPanel.beginSheetModal(for: window, completionHandler: { buttonClicked in
 			switch buttonClicked {
 				case NSOKButton:
-					let url = openPanel.URL
+					let url = openPanel.url
 					let path = url!.path!
 
 					if !Targets.isValidProjectDir(path) {
 						break
 					}
 
-					NSUserDefaults.standardUserDefaults().setObject(path, forKey: USER_DEFAULTS_PROJECT_PATH)
+					UserDefaults.standard().set(path, forKey: USER_DEFAULTS_PROJECT_PATH)
 					try! self.loadTargets()
 				case NSCancelButton:
 					break
@@ -82,21 +82,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 
 	@IBOutlet var searchField: NSSearchField!
-	@IBAction func setFocusToSearch(sender: AnyObject) {
+	@IBAction func setFocusToSearch(_ sender: AnyObject) {
 		searchField.becomeFirstResponder()
 	}
 
 	@IBOutlet var collectionView: NSCollectionView!
-	var selectedIndexes: NSIndexSet = NSIndexSet()
+	var selectedIndexes: IndexSet = IndexSet()
 
-	private func targetForIndex(index:Int) -> Target? {
+	private func targetForIndex(_ index:Int) -> Target? {
 		do {
 			let targets = try targetsHelper!.loadTargets()
 			let searchText = searchField.stringValue
 			let filteredTargets = searchText.isEmpty
 				? targets
 				: targets.filter() { target in
-					target.name.rangeOfString(searchText, options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil
+					target.name.range(of: searchText, options: .caseInsensitiveSearch, range: nil, locale: nil) != nil
 				}
 
 			if index >= filteredTargets.count || index < 0 {
@@ -113,11 +113,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	dynamic var targets : [Target] = []
 
 	@IBOutlet var currentTargetView : NSToolbarItem!
-	@IBAction func changeTarget(sender: AnyObject) {
-		let index = selectedIndexes.firstIndex
+	@IBAction func changeTarget(_ sender: AnyObject) {
+		let index = selectedIndexes.first
 		guard selectedIndexes.count == 1 && index != NSNotFound else {
 			let alert = NSAlert()
-			alert.alertStyle = .InformationalAlertStyle
+			alert.alertStyle = .informational
 			alert.messageText = NSLocalizedString("Single selection required",
 				tableName: "ErrorMessages",
 				comment: "Title for the only-select-one alert"
@@ -132,7 +132,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			return
 		}
 
-		let target = targetForIndex(index)!
+		let target = targetForIndex(index!)!
 		try! targetsHelper!.setCurrentTarget(target)
 		currentTarget = target
 	}
@@ -147,10 +147,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 
 	@IBOutlet weak var screenshotProgressWindow: ScreenshotsProgressWindow!
-	@IBAction func takeScreenshots(sender: AnyObject) {
+	@IBAction func takeScreenshots(_ sender: AnyObject) {
 		guard selectedIndexes.count > 0 else {
 			let alert = NSAlert()
-			alert.alertStyle = .InformationalAlertStyle
+			alert.alertStyle = .informational
 			alert.messageText = NSLocalizedString("Selection required",
 				tableName: "Screenshots",
 				comment: "Title for the selection-required-for-screenshots alert"
@@ -164,7 +164,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			return
 		}
 
-		let target = targetForIndex(selectedIndexes.firstIndex)!
+		let target = targetForIndex(selectedIndexes.first!)!
 
 		screenshotProgressWindow.prepareForTarget(target, projectPath: projectPath!) {
 			self.window.endSheet(self.screenshotProgressWindow)
