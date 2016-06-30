@@ -20,7 +20,7 @@ class Progress {
 		let data = json.data(using: String.Encoding.utf8, allowLossyConversion: false)!
 		let dict = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:AnyObject]
 
-		let typeName = stringFromDict(dict, key: "type")!
+		let typeName = dict["type"] as! String
 		switch typeName {
 			case "update":
 				type = .update

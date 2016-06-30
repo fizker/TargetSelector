@@ -21,8 +21,8 @@ class AppStyles {
 		if let fileContent = appStylesContent {
 			let appStyles = try! JSONSerialization.jsonObject(with: fileContent, options: []) as! [String:AnyObject]
 
-			server = stringFromDict(appStyles, key: "server")!
-			name = stringFromDict(appStyles, key: "name")!
+			server = appStyles["server"] as! String
+			name = appStyles["name"] as! String
 
 			let context = JSContext()
 			target = (context?.evaluateScript("'\(server)'.match(/https?:\\/\\/([^.]+)\\./)[1]").toString())!
