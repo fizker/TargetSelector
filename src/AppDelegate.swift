@@ -10,6 +10,7 @@ import Cocoa
 
 let USER_DEFAULTS_PROJECT_PATH = "projectPath"
 
+@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 	@IBOutlet var window: NSWindow!
 

@@ -21,7 +21,6 @@
 		43A9B03E1B863651001BAADB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9B03D1B863651001BAADB /* Task.swift */; };
 		43A9B0401B864328001BAADB /* ScreenshotsProgressWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A9B03F1B864328001BAADB /* ScreenshotsProgressWindow.swift */; };
 		43C8E31A19A32FED0096116E /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C8E31919A32FED0096116E /* Regex.swift */; };
-		43E41E80195CAEAC00FD162D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E7F195CAEAC00FD162D /* main.swift */; };
 		43E41E82195CAEAC00FD162D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E41E81195CAEAC00FD162D /* AppDelegate.swift */; };
 		43E41E84195CAEAC00FD162D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43E41E83195CAEAC00FD162D /* Images.xcassets */; };
 		43E41E87195CAEAC00FD162D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E41E85195CAEAC00FD162D /* MainMenu.xib */; };
@@ -56,7 +55,6 @@
 		43C8E31919A32FED0096116E /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		43E41E7A195CAEAC00FD162D /* TargetSelector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TargetSelector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E41E7E195CAEAC00FD162D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		43E41E7F195CAEAC00FD162D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		43E41E81195CAEAC00FD162D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43E41E83195CAEAC00FD162D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		43E41E86195CAEAC00FD162D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 			children = (
 				434F40F9195F385000F14CBF /* AddApp.png */,
 				43E41E7E195CAEAC00FD162D /* Info.plist */,
-				43E41E7F195CAEAC00FD162D /* main.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -312,7 +309,6 @@
 				43778C1B195CD51300BD417D /* TargetCollectionViewCell.swift in Sources */,
 				437E1C341962976D00A32927 /* AddAppTask.swift in Sources */,
 				434605151B84851500D6F51A /* TakeScreenshotsTask.swift in Sources */,
-				43E41E80195CAEAC00FD162D /* main.swift in Sources */,
 				437E1C3E1965E44300A32927 /* AddAppProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
