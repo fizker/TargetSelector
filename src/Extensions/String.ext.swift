@@ -27,8 +27,8 @@ extension NSString {
 }
 
 extension String {
-	func trim() -> String {
-		return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+	var trimmed: String {
+		return self.trimmingCharacters(in: .whitespacesAndNewlines)
 	}
 }
 
@@ -41,10 +41,7 @@ extension String {
 
 extension NSString {
 	func match(_ regex: Regex, options: RegularExpression.MatchingOptions = []) -> [TextCheckingResult] {
-		if regex.matcher == nil {
-			return []
-		}
-		return match(regex.matcher!, options: options)
+		return regex.matcher.map { self.match($0, options: options) } ?? []
 	}
 
 	func match(_ regex: RegularExpression, options: RegularExpression.MatchingOptions = []) -> [TextCheckingResult] {

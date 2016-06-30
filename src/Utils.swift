@@ -13,7 +13,7 @@ extension FileHandle {
 	var stringContents:String? {
 		guard let content = String(data: availableData, encoding: .utf8)
 		else { return nil }
-		let trimmedContent = content.trim()
+		let trimmedContent = content.trimmed
 		return trimmedContent.isEmpty ? nil : trimmedContent
 	}
 }

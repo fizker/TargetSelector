@@ -15,23 +15,17 @@ protocol RegularExpressionMatchable {
 struct Regex : RegularExpressionMatchable {
 	let pattern: String
 	let options: RegularExpression.Options
-
-	var matcher: RegularExpression? {
-		do {
-			return try RegularExpression(pattern: pattern, options: options)
-		} catch _ {
-			return nil
-		}
-	}
+	let matcher: RegularExpression?
 
 	init(pattern:String, options:RegularExpression.Options = []) {
 		self.pattern = pattern
 		self.options = options
+		matcher = try? RegularExpression(pattern: pattern, options: options)
 	}
 
 	func test(_ string: String, options: RegularExpression.MatchingOptions = []) -> Bool {
-		guard let matcher = matcher else { return false }
-		return matcher.numberOfMatches(in: string, options: options, range: NSRangeFromString(string)) != 0
+		let numberOfMatches = matcher?.numberOfMatches(in: string, options: options, range: NSRangeFromString(string))
+		return (numberOfMatches ?? 0) != 0
 	}
 }
 
