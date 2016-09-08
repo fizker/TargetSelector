@@ -2,7 +2,6 @@ import Foundation
 
 enum TargetError : Error {
 	case couldNotSetTarget(String)
-	case couldNotLoadTarget
 }
 
 class Targets {
@@ -44,10 +43,13 @@ class Targets {
 			.map { Target(url: $0) }
 	}
 
-	func getCurrentTarget() throws -> String {
-		let content = try NSString(contentsOfFile: projectPath + "/Target.xcconfig", encoding: String.Encoding.utf8.rawValue)
+	func getCurrentTarget() -> String? {
+		guard let content = try? NSString(contentsOfFile: projectPath + "/Target.xcconfig", encoding: String.Encoding.utf8.rawValue)
+		else { return nil }
+
 		let matches = content.match("CURRENT_TARGET_NAME *= *(.+)")
-		guard let firstMatch = matches.first else { throw TargetError.couldNotLoadTarget }
+		guard let firstMatch = matches.first
+		else { return nil }
 		return content.substring(with: firstMatch.rangeAt(1))
 	}
 	func setCurrentTarget(_ target:String) throws {

@@ -17,7 +17,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	var targetsHelper:Targets?
 
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
-		try! loadTargets()
+		do {
+			try loadTargets()
+		} catch {
+			reportUnknownError(error)
+		}
 	}
 
 	func applicationWillTerminate(_ aNotification: Notification) {
@@ -35,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 				self.targetsHelper = targetsHelper
 
 				self.currentTarget = nil
-				let currentTarget = try targetsHelper.getCurrentTarget()
+				let currentTarget = targetsHelper.getCurrentTarget()
 				let targets = try targetsHelper.loadTargets()
 				for target in targets {
 					if target.name == currentTarget {
@@ -134,8 +138,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 
 		let target = targetForIndex(index!)!
-		try! targetsHelper!.setCurrentTarget(target)
-		currentTarget = target
+		do {
+			try targetsHelper!.setCurrentTarget(target)
+			currentTarget = target
+		} catch let error as TargetError {
+			switch error {
+			case .couldNotSetTarget(let reason):
+				let alert = NSAlert()
+				alert.alertStyle = .critical
+				alert.messageText = NSLocalizedString(
+					"Could not change target",
+					tableName: "ErrorMessages",
+					comment: "Title for the TargetError.couldNotSetTarget case"
+				)
+				alert.informativeText = reason
+				alert.runModal()
+				break
+			}
+		} catch {
+			reportUnknownError(error)
+		}
 	}
 
 	var currentTarget : Target? {
@@ -195,5 +217,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			}
 		}
 		*/
+	}
+
+	private func reportUnknownError(_ error:Error) {
+		let alert = NSAlert()
+		alert.alertStyle = .critical
+		alert.messageText = NSLocalizedString(
+			"Unknown error",
+			tableName: "ErrorMessages",
+			comment: "Title for an unknown error"
+		)
+		alert.informativeText = error.localizedDescription
+		alert.runModal()
 	}
 }
