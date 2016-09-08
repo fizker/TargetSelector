@@ -242,7 +242,9 @@
 				TargetAttributes = {
 					43E41E79195CAEAC00FD162D = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 57246Q7UVY;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 					43E41E8B195CAEAC00FD162D = {
 						CreatedOnToolsVersion = 6.0;
@@ -428,7 +430,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 57246Q7UVY;
 				INFOPLIST_FILE = src/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.returntool.${PRODUCT_NAME:rfc1034identifier}";
@@ -443,7 +447,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 57246Q7UVY;
 				INFOPLIST_FILE = src/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.returntool.${PRODUCT_NAME:rfc1034identifier}";
