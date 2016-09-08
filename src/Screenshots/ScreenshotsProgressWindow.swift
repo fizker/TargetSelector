@@ -20,7 +20,7 @@ class ScreenshotsProgressWindow : NSWindow {
 
 	private var task:TakeScreenshotsTask?
 
-	func prepareForTarget(_ target:Target, projectPath:String, onClose:OnClose) {
+	func prepareForTarget(_ target:Target, projectPath:String, onClose:@escaping OnClose) {
 		self.onClose = onClose
 
 		progressField.stringValue = ""
