@@ -1,12 +1,7 @@
-//
-//  Regex.swift
-//  TargetSelector
-//
-//  Created by Benjamin Horsleben on 19/08/14.
-//  Copyright (c) 2014 ReturnTool ApS. All rights reserved.
-//
-
 import Foundation
+
+typealias RegularExpression = NSRegularExpression
+typealias TextCheckingResult = NSTextCheckingResult
 
 protocol RegularExpressionMatchable {
 	func test(_ string:String, options: RegularExpression.MatchingOptions) -> Bool
@@ -29,7 +24,7 @@ struct Regex : RegularExpressionMatchable {
 	}
 }
 
-extension Regex : StringLiteralConvertible {
+extension Regex : ExpressibleByStringLiteral {
 	init(unicodeScalarLiteral value: UnicodeScalarType) {
 		self.init(pattern: value)
 	}
@@ -43,7 +38,7 @@ extension Regex : StringLiteralConvertible {
 	}
 }
 
-infix operator =~ { associativity left precedence 130 }
+infix operator =~
 
 func =~<T:RegularExpressionMatchable> (left:T, right: String) -> Bool {
 	return left.test(right, options: [])

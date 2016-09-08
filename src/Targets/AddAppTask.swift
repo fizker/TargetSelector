@@ -11,7 +11,7 @@ import Foundation
 class AddAppTasks {
 	var onProgress : ((Progress)->())?
 	var onComplete : (([Target])->())?
-	var onError : ((status: Int, String?)->())?
+	var onError : ((_ status: Int, String?)->())?
 
 	let projectPath : String
 	let appFolders : [String]
@@ -47,7 +47,7 @@ class AddAppTasks {
 class AddAppTask {
 	var onProgress : ((Progress)->())?
 	var onComplete : ((Target)->())?
-	var onError : ((status: Int, String?)->())?
+	var onError : ((_ status: Int, String?)->())?
 
 	let projectPath : String
 	let appFolder : String

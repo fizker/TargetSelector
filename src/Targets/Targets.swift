@@ -1,14 +1,6 @@
-//
-//  Targets.swift
-//  TargetSelector
-//
-//  Created by Benjamin Horsleben on 29/06/14.
-//  Copyright (c) 2014 ReturnTool ApS. All rights reserved.
-//
-
 import Foundation
 
-enum TargetError : ErrorProtocol {
+enum TargetError : Error {
 	case couldNotSetTarget(String)
 	case couldNotLoadTarget
 }
@@ -20,7 +12,7 @@ class Targets {
 	}
 
 	class func isValidProjectDir(_ projectPath:String) -> Bool {
-		let fileManager = FileManager.default()
+		let fileManager = FileManager.default
 		let requiredFiles = ["Target.xcconfig", "products", "scripts/set-current-target.js"]
 		for file in requiredFiles {
 			if !fileManager.fileExists(atPath: "\(projectPath)/\(file)") {
@@ -31,12 +23,12 @@ class Targets {
 	}
 
 	func loadTargets() throws -> [Target] {
-		let fileManager = FileManager.default()
+		let fileManager = FileManager.default
 
 		let url = URL(fileURLWithPath: projectPath + "/products")
 		let contents = try fileManager.contentsOfDirectory(
 			at: url,
-			includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue],
+			includingPropertiesForKeys: [URLResourceKey(rawValue: URLResourceKey.isDirectoryKey.rawValue)],
 			options: .skipsHiddenFiles
 		)
 
@@ -56,12 +48,11 @@ class Targets {
 		let content = try NSString(contentsOfFile: projectPath + "/Target.xcconfig", encoding: String.Encoding.utf8.rawValue)
 		let matches = content.match("CURRENT_TARGET_NAME *= *(.+)")
 		guard let firstMatch = matches.first else { throw TargetError.couldNotLoadTarget }
-
-		return content.substring(with: firstMatch.range(at: 1))
+		return content.substring(with: firstMatch.rangeAt(1))
 	}
 	func setCurrentTarget(_ target:String) throws {
 		let errorPipe = Pipe()
-		let task = Foundation.Task()
+		let task = Process()
 		task.launchPath = "/usr/local/bin/node"
 		task.arguments = [projectPath + "/scripts/set-current-target.js", target]
 		task.standardError = errorPipe

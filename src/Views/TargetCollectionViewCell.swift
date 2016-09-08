@@ -20,9 +20,9 @@ class TargetCollectionViewCell: NSView {
 
         // Drawing code here.
 		if selected {
-			NSColor.blue().set()
+			NSColor.blue.set()
 		} else {
-			NSColor.clear().set()
+			NSColor.clear.set()
 		}
 		NSBezierPath(rect: dirtyRect).fill()
     }

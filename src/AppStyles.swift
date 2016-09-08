@@ -15,7 +15,7 @@ class AppStyles {
 	let target:String
 
 	init(filePath:String) {
-		let fileManager = FileManager.default()
+		let fileManager = FileManager.default
 		let appStylesContent = fileManager.contents(atPath: filePath)
 
 		if let fileContent = appStylesContent {

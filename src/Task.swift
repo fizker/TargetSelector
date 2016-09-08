@@ -15,15 +15,15 @@ class Task {
 
 	var onProgress:((String)->Void)?
 	var onComplete:(()->Void)?
-	var onError:((status:Int, String?)->Void)?
+	var onError:((_ status:Int, String?)->Void)?
 
-	private let task:Foundation.Task
+	private let task:Process
 
 	init(launchPath:String, arguments:[String] = []) {
 		self.launchPath = launchPath
 		self.arguments = arguments
 
-		task = Foundation.Task()
+		task = Process()
 
 		setupTask()
 	}
@@ -46,7 +46,7 @@ class Task {
 			task.currentDirectoryPath = cwd
 		}
 
-		var env = ProcessInfo.processInfo().environment
+		var env = ProcessInfo.processInfo.environment
 		let path = env["PATH"] ?? ""
 		env["PATH"] = path + ":/usr/local/bin"
 		task.environment = env
@@ -56,7 +56,7 @@ class Task {
 			if exitCode == 0 {
 				self.onComplete?()
 			} else {
-				self.onError?(status: Int(exitCode), errorPipe.stringContents)
+				self.onError?(Int(exitCode), errorPipe.stringContents)
 			}
 		}
 	}

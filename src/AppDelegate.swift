@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 
 	var projectPath:String? {
-		return UserDefaults.standard().string(forKey: USER_DEFAULTS_PROJECT_PATH)
+		return UserDefaults.standard.string(forKey: USER_DEFAULTS_PROJECT_PATH)
 	}
 
 	func loadTargets() throws {
@@ -66,13 +66,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			switch buttonClicked {
 				case NSOKButton:
 					let url = openPanel.url
-					let path = url!.path!
+					let path = url!.path
 
 					if !Targets.isValidProjectDir(path) {
 						break
 					}
 
-					UserDefaults.standard().set(path, forKey: USER_DEFAULTS_PROJECT_PATH)
+					UserDefaults.standard.set(path, forKey: USER_DEFAULTS_PROJECT_PATH)
 					try! self.loadTargets()
 				case NSCancelButton:
 					break
@@ -97,7 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			let filteredTargets = searchText.isEmpty
 				? targets
 				: targets.filter() { target in
-					target.name.range(of: searchText, options: .caseInsensitiveSearch, range: nil, locale: nil) != nil
+					target.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
 				}
 
 			if index >= filteredTargets.count || index < 0 {
