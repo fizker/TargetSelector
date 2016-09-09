@@ -1,13 +1,7 @@
-//
-//  Target.swift
-//  TargetSelector
-//
-//  Created by Benjamin Horsleben on 26/06/14.
-//  Copyright (c) 2014 ReturnTool ApS. All rights reserved.
-//
-
 import Foundation
 import AppKit
+
+let fallbackIcon = NSImage(named: "fallback")!
 
 class Target : NSObject {
 	let productDir:URL
@@ -26,7 +20,7 @@ class Target : NSObject {
 			? primaryIconPath
 			: secondaryIconPath
 
-		icon = NSImage(contentsOfFile: iconPath)!
+		icon = NSImage(contentsOfFile: iconPath) ?? fallbackIcon
 	}
 
 	override var description:String {
